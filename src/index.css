@@ -8,41 +8,41 @@
 
 @layer base {
   :root {
-    /* Light mode - Custom green palette */
-    --background: 137 38% 90%; /* #e9f5db */
-    --foreground: 82 23% 25%; /* Dark text from palette */
+    /* Light mode - New neutral palette */
+    --background: 60 5% 93%; /* #edede9ff - isabelline */
+    --foreground: 20 10% 20%; /* Dark text for contrast */
 
-    --card: 94 35% 85%; /* #cfe1b9 */
-    --card-foreground: 82 23% 25%;
+    --card: 30 15% 85%; /* #d6ccc2ff - timberwolf */
+    --card-foreground: 20 10% 20%;
 
-    --popover: 94 35% 85%;
-    --popover-foreground: 82 23% 25%;
+    --popover: 30 15% 85%; /* #d6ccc2ff - timberwolf */
+    --popover-foreground: 20 10% 20%;
 
-    --primary: 82 23% 39%; /* #718355 */
-    --primary-foreground: 137 38% 90%;
+    --primary: 25 20% 45%; /* #d5bdafff - pale dogwood */
+    --primary-foreground: 60 5% 93%;
 
-    --secondary: 78 25% 54%; /* #87986a */
-    --secondary-foreground: 137 38% 90%;
+    --secondary: 30 20% 70%; /* #e3d5caff - champagne-pink */
+    --secondary-foreground: 20 10% 20%;
 
-    --muted: 85 30% 75%; /* #b5c99a */
-    --muted-foreground: 82 23% 30%;
+    --muted: 30 25% 80%; /* #f5ebe0ff - linen */
+    --muted-foreground: 20 10% 30%;
 
-    --accent: 76 22% 59%; /* #97a97c */
-    --accent-foreground: 137 38% 90%;
+    --accent: 25 20% 50%; /* #d5bdafff - pale dogwood */
+    --accent-foreground: 60 5% 93%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 137 38% 90%;
+    --destructive-foreground: 60 5% 93%;
 
-    --border: 85 30% 75%;
-    --input: 85 30% 75%;
-    --ring: 82 23% 39%;
+    --border: 30 15% 80%; /* #f5ebe0ff - linen */
+    --input: 30 15% 80%; /* #f5ebe0ff - linen */
+    --ring: 25 20% 45%; /* #d5bdafff - pale dogwood */
 
     --radius: 8px;
 
     /* Material Design elevation colors */
-    --elevation-1: 137 38% 88%;
-    --elevation-2: 137 38% 86%;
-    --elevation-3: 137 38% 84%;
+    --elevation-1: 60 5% 91%; /* Slightly darker isabelline */
+    --elevation-2: 60 5% 89%; /* Medium isabelline */
+    --elevation-3: 60 5% 87%; /* Darker isabelline */
 
     /* Timer specific colors */
     --timer-work: 120 100% 25%; /* Green for work periods */
@@ -57,39 +57,39 @@
   }
 
   .dark {
-    /* Dark mode - Custom dark palette */
-    --background: 35 29% 5%; /* #12100e */
-    --foreground: 137 38% 90%;
+    /* Dark mode - New dark green palette */
+    --background: 120 100% 8%; /* #132a13ff - dark-green */
+    --foreground: 60 100% 90%; /* #ecf39eff - mindaro */
 
-    --card: 64 18% 10%; /* #30321c */
-    --card-foreground: 137 38% 90%;
+    --card: 120 50% 15%; /* #31572cff - hunter-green */
+    --card-foreground: 60 100% 90%;
 
-    --popover: 64 18% 10%;
-    --popover-foreground: 137 38% 90%;
+    --popover: 120 50% 15%; /* #31572cff - hunter-green */
+    --popover-foreground: 60 100% 90%;
 
-    --primary: 137 38% 90%;
-    --primary-foreground: 35 29% 5%;
+    --primary: 60 100% 90%; /* #ecf39eff - mindaro */
+    --primary-foreground: 120 100% 8%;
 
-    --secondary: 66 21% 18%; /* #4a4b2f */
-    --secondary-foreground: 137 38% 90%;
+    --secondary: 120 40% 25%; /* #4f772dff - fern-green */
+    --secondary-foreground: 60 100% 90%;
 
-    --muted: 64 18% 15%;
-    --muted-foreground: 137 38% 70%;
+    --muted: 120 30% 35%; /* #90a955ff - moss-green */
+    --muted-foreground: 60 100% 80%;
 
-    --accent: 68 19% 29%; /* #6b654b */
-    --accent-foreground: 137 38% 90%;
+    --accent: 120 30% 35%; /* #90a955ff - moss-green */
+    --accent-foreground: 60 100% 90%;
 
     --destructive: 0 62% 30%;
-    --destructive-foreground: 137 38% 90%;
+    --destructive-foreground: 60 100% 90%;
 
-    --border: 66 21% 18%;
-    --input: 66 21% 18%;
-    --ring: 137 38% 90%;
+    --border: 120 40% 25%; /* #4f772dff - fern-green */
+    --input: 120 40% 25%; /* #4f772dff - fern-green */
+    --ring: 60 100% 90%; /* #ecf39eff - mindaro */
 
     /* Material Design elevation colors - dark */
-    --elevation-1: 64 18% 12%;
-    --elevation-2: 64 18% 14%;
-    --elevation-3: 64 18% 16%;
+    --elevation-1: 120 100% 10%; /* Slightly lighter dark-green */
+    --elevation-2: 120 100% 12%; /* Medium dark-green */
+    --elevation-3: 120 100% 14%; /* Lighter dark-green */
 
     /* Timer colors - adjusted for dark mode */
     --timer-work: 120 60% 40%;
@@ -110,7 +110,8 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Noto Sans JP', sans;
     font-feature-settings: "cv11", "ss01";
     font-variation-settings: "opsz" 32;
   }

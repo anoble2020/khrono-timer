@@ -3,7 +3,7 @@ import { Card } from '@/components/ui/card';
 import { TimerControls } from './TimerControls';
 import { TimerDisplay } from './TimerDisplay';
 import { ProgressIndicator } from './ProgressIndicator';
-import { TimerConfig, TimerMode } from '@/pages/Index';
+import { TimerConfig, TimerMode } from '@/pages/Workout';
 
 export type TimerState = 'idle' | 'work' | 'rest' | 'setRest' | 'complete';
 
@@ -57,10 +57,16 @@ export const TabataTimer: React.FC<TabataTimerProps> = ({ config, mode }) => {
 
   // Calculate total workout time
   useEffect(() => {
-    const singleSetTime = (config.workTime + config.restTime) * config.rounds - config.restTime;
-    const totalSetRest = config.sets > 1 ? (config.sets - 1) * config.setRest : 0;
-    setTotalTime(singleSetTime * config.sets + totalSetRest);
-  }, [config]);
+    if (mode === 'emom') {
+      // EMOM: each round is 60 seconds, no rest between rounds
+      setTotalTime(config.rounds * 60);
+    } else {
+      // Intervals: work + rest time calculation
+      const singleSetTime = (config.workTime + config.restTime) * config.rounds - config.restTime;
+      const totalSetRest = config.sets > 1 ? (config.sets - 1) * config.setRest : 0;
+      setTotalTime(singleSetTime * config.sets + totalSetRest);
+    }
+  }, [config, mode]);
 
   // Reset timer when config changes
   useEffect(() => {
@@ -84,18 +90,31 @@ export const TabataTimer: React.FC<TabataTimerProps> = ({ config, mode }) => {
         // Time's up - transition to next state
         if (timerState === 'work') {
           playEndBeep();
-          if (currentRound < config.rounds) {
-            setTimerState('rest');
-            return config.restTime;
-          } else if (currentSet < config.sets) {
-            setTimerState('setRest');
-            setCurrentRound(1);
-            setCurrentSet(prev => prev + 1);
-            return config.setRest;
+          if (mode === 'emom') {
+            // EMOM: move to next round immediately (60 seconds each)
+            if (currentRound < config.rounds) {
+              setCurrentRound(prev => prev + 1);
+              return 60; // Reset to 60 seconds for next round
+            } else {
+              setTimerState('complete');
+              setIsRunning(false);
+              return 0;
+            }
           } else {
-            setTimerState('complete');
-            setIsRunning(false);
-            return 0;
+            // Intervals: normal work/rest cycle
+            if (currentRound < config.rounds) {
+              setTimerState('rest');
+              return config.restTime;
+            } else if (currentSet < config.sets) {
+              setTimerState('setRest');
+              setCurrentRound(1);
+              setCurrentSet(prev => prev + 1);
+              return config.setRest;
+            } else {
+              setTimerState('complete');
+              setIsRunning(false);
+              return 0;
+            }
           }
         } else if (timerState === 'rest') {
           playStartBeep();
@@ -117,12 +136,12 @@ export const TabataTimer: React.FC<TabataTimerProps> = ({ config, mode }) => {
         clearInterval(intervalRef.current);
       }
     };
-  }, [isRunning, timerState, currentRound, currentSet, config, playStartBeep, playEndBeep, playCountdownBeep]);
+  }, [isRunning, timerState, currentRound, currentSet, config, mode, playStartBeep, playEndBeep, playCountdownBeep]);
 
   const start = () => {
     if (timerState === 'idle') {
       setTimerState('work');
-      setTimeLeft(config.workTime);
+      setTimeLeft(mode === 'emom' ? 60 : config.workTime);
       playStartBeep();
     }
     setIsRunning(true);
@@ -134,7 +153,7 @@ export const TabataTimer: React.FC<TabataTimerProps> = ({ config, mode }) => {
 
   const reset = () => {
     setIsRunning(false);
-    setTimeLeft(config.workTime);
+    setTimeLeft(mode === 'emom' ? 60 : config.workTime);
     setCurrentRound(1);
     setCurrentSet(1);
     setTimerState('idle');
@@ -146,17 +165,24 @@ export const TabataTimer: React.FC<TabataTimerProps> = ({ config, mode }) => {
   const getProgress = () => {
     if (timerState === 'idle') return 0;
     
-    const completedRounds = (currentSet - 1) * config.rounds + (currentRound - 1);
-    const totalRounds = config.rounds * config.sets;
-    
-    if (timerState === 'work') {
-      const roundProgress = (config.workTime - timeLeft) / config.workTime;
-      return (completedRounds + roundProgress) / totalRounds;
-    } else if (timerState === 'rest') {
-      const roundProgress = (config.restTime - timeLeft) / config.restTime;
-      return (completedRounds + 0.5 + roundProgress * 0.5) / totalRounds;
-    } else if (timerState === 'setRest') {
-      return completedRounds / totalRounds;
+    if (mode === 'emom') {
+      // EMOM: simple progress based on rounds
+      const roundProgress = (60 - timeLeft) / 60;
+      return (currentRound - 1 + roundProgress) / config.rounds;
+    } else {
+      // Intervals: complex progress calculation
+      const completedRounds = (currentSet - 1) * config.rounds + (currentRound - 1);
+      const totalRounds = config.rounds * config.sets;
+      
+      if (timerState === 'work') {
+        const roundProgress = (config.workTime - timeLeft) / config.workTime;
+        return (completedRounds + roundProgress) / totalRounds;
+      } else if (timerState === 'rest') {
+        const roundProgress = (config.restTime - timeLeft) / config.restTime;
+        return (completedRounds + 0.5 + roundProgress * 0.5) / totalRounds;
+      } else if (timerState === 'setRest') {
+        return completedRounds / totalRounds;
+      }
     }
     
     return 1;

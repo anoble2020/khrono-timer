@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
-        display: ["Inter", "system-ui", "sans-serif"],
+        sans: ["Noto Sans JP", "sans"],
+        display: ["Noto Sans JP", "sans"],
       },
       colors: {
         border: "hsl(var(--border))",
