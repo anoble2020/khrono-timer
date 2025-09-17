@@ -2,95 +2,105 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* Tabata Timer Design System - Material Design with Custom Palette
+   All colors MUST be HSL. Based on specified light/dark color schemes.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Light mode - Custom green palette */
+    --background: 137 38% 90%; /* #e9f5db */
+    --foreground: 82 23% 25%; /* Dark text from palette */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 94 35% 85%; /* #cfe1b9 */
+    --card-foreground: 82 23% 25%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 94 35% 85%;
+    --popover-foreground: 82 23% 25%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 82 23% 39%; /* #718355 */
+    --primary-foreground: 137 38% 90%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 78 25% 54%; /* #87986a */
+    --secondary-foreground: 137 38% 90%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 85 30% 75%; /* #b5c99a */
+    --muted-foreground: 82 23% 30%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 76 22% 59%; /* #97a97c */
+    --accent-foreground: 137 38% 90%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 137 38% 90%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 85 30% 75%;
+    --input: 85 30% 75%;
+    --ring: 82 23% 39%;
 
-    --radius: 0.5rem;
+    --radius: 8px;
 
-    --sidebar-background: 0 0% 98%;
+    /* Material Design elevation colors */
+    --elevation-1: 137 38% 88%;
+    --elevation-2: 137 38% 86%;
+    --elevation-3: 137 38% 84%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    /* Timer specific colors */
+    --timer-work: 120 100% 25%; /* Green for work periods */
+    --timer-rest: 14 100% 57%; /* Orange for rest periods */
+    --timer-complete: 260 100% 47%; /* Purple for completion */
 
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Material shadows */
+    --shadow-sm: 0 1px 3px 0 hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.1), 0 2px 4px -2px hsl(0 0% 0% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.1), 0 4px 6px -4px hsl(0 0% 0% / 0.1);
+    --shadow-xl: 0 20px 25px -5px hsl(0 0% 0% / 0.1), 0 8px 10px -6px hsl(0 0% 0% / 0.1);
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Dark mode - Custom dark palette */
+    --background: 35 29% 5%; /* #12100e */
+    --foreground: 137 38% 90%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 64 18% 10%; /* #30321c */
+    --card-foreground: 137 38% 90%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 64 18% 10%;
+    --popover-foreground: 137 38% 90%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 137 38% 90%;
+    --primary-foreground: 35 29% 5%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 66 21% 18%; /* #4a4b2f */
+    --secondary-foreground: 137 38% 90%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 64 18% 15%;
+    --muted-foreground: 137 38% 70%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 68 19% 29%; /* #6b654b */
+    --accent-foreground: 137 38% 90%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 137 38% 90%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 66 21% 18%;
+    --input: 66 21% 18%;
+    --ring: 137 38% 90%;
+
+    /* Material Design elevation colors - dark */
+    --elevation-1: 64 18% 12%;
+    --elevation-2: 64 18% 14%;
+    --elevation-3: 64 18% 16%;
+
+    /* Timer colors - adjusted for dark mode */
+    --timer-work: 120 60% 40%;
+    --timer-rest: 14 80% 50%;
+    --timer-complete: 260 60% 60%;
+
+    /* Dark mode shadows */
+    --shadow-sm: 0 1px 3px 0 hsl(0 0% 0% / 0.3), 0 1px 2px -1px hsl(0 0% 0% / 0.3);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.4), 0 2px 4px -2px hsl(0 0% 0% / 0.4);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.5), 0 4px 6px -4px hsl(0 0% 0% / 0.5);
+    --shadow-xl: 0 20px 25px -5px hsl(0 0% 0% / 0.6), 0 8px 10px -6px hsl(0 0% 0% / 0.6);
   }
 }
 
@@ -100,6 +110,80 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "cv11", "ss01";
+    font-variation-settings: "opsz" 32;
+  }
+
+  /* Material Design button ripple effect */
+  .ripple {
+    position: relative;
+    overflow: hidden;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .ripple:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.1;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  .ripple:active:before {
+    width: 300px;
+    height: 300px;
+  }
+
+  /* Timer pulse animation */
+  @keyframes timer-pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+
+  .timer-pulse {
+    animation: timer-pulse 1s ease-in-out infinite;
+  }
+
+  /* Material elevation utilities */
+  .elevation-1 {
+    background: hsl(var(--elevation-1));
+    box-shadow: var(--shadow-sm);
+  }
+
+  .elevation-2 {
+    background: hsl(var(--elevation-2));
+    box-shadow: var(--shadow-md);
+  }
+
+  .elevation-3 {
+    background: hsl(var(--elevation-3));
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Custom timer colors */
+  .timer-work {
+    background: hsl(var(--timer-work));
+    color: white;
+  }
+
+  .timer-rest {
+    background: hsl(var(--timer-rest));
+    color: white;
+  }
+
+  .timer-complete {
+    background: hsl(var(--timer-complete));
+    color: white;
   }
 }
