@@ -80,15 +80,15 @@ const ModeSelection = () => {
               return (
                 <div
                   key={mode.id}
-                  className={`flex flex-col justify-between items-center p-0 relative w-full h-56 ${cardBg} rounded-[20px] cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-lg shadow-md`}
+                  className={`flex flex-col justify-center items-center p-0 relative w-full h-56 ${cardBg} rounded-[20px] cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-lg shadow-md`}
                   onClick={() => handleModeSelect(mode.id)}
                 >
-                  {/* Content */}
-                  <div className="flex flex-col items-center justify-center flex-1 px-8 py-6 text-center">
-                    <h2 className="text-2xl font-medium text-foreground mb-3 tracking-wide">
+                  {/* Main Content */}
+                  <div className="flex flex-col items-center justify-center text-center px-8 mb-8">
+                    <h2 className="text-2xl font-bold text-black mb-4 tracking-normal">
                       {mode.name.toUpperCase()}
                     </h2>
-                    <p className="text-sm text-foreground/70 leading-relaxed max-w-[280px]">
+                    <p className="text-sm text-black/80 leading-relaxed max-w-[280px]">
                       {mode.id === 'intervals' 
                         ? 'Intervals of work and rest, such as Tabata or timed workouts'
                         : 'Every minute on the minute, with a set amount of work performed at the top of every minute'
@@ -97,10 +97,8 @@ const ModeSelection = () => {
                   </div>
                   
                   {/* Start Button */}
-                  <div className="mb-6">
-                    <div className="px-8 py-2 border-2 border-foreground bg-transparent text-foreground font-medium text-sm tracking-wide hover:bg-foreground hover:text-background transition-colors duration-200">
-                      START
-                    </div>
+                  <div className="px-6 py-2 border-2 border-black bg-transparent text-black font-medium text-sm tracking-wide hover:bg-black hover:text-white transition-colors duration-200">
+                    START
                   </div>
                 </div>
               );
