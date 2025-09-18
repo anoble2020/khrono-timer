@@ -8,46 +8,48 @@
 
 @layer base {
   :root {
-    /* Light mode - Modern clean palette inspired by reference designs */
-    --background: 210 40% 98%; /* #F8F9FA - Soft off-white */
-    --foreground: 222 84% 5%; /* #0D1117 - Rich dark text */
+    /* Light mode - Custom palette from Figma */
+    --background: 95 75% 97%; /* #F5FCEC - Light green background */
+    --foreground: 0 0% 10%; /* #1A1A1A - Dark text for good contrast */
 
     --card: 0 0% 100%; /* #FFFFFF - Pure white cards */
-    --card-foreground: 222 84% 5%; /* #0D1117 */
+    --card-foreground: 0 0% 10%; /* #1A1A1A */
 
     --popover: 0 0% 100%; /* #FFFFFF */
-    --popover-foreground: 222 84% 5%; /* #0D1117 */
+    --popover-foreground: 0 0% 10%; /* #1A1A1A */
 
-    --primary: 142 76% 36%; /* #16A34A - Modern green */
-    --primary-foreground: 0 0% 100%; /* #FFFFFF */
+    --primary: 176 75% 85%; /* #D8FAF6 - EMOM card color (teal) */
+    --primary-foreground: 0 0% 15%; /* #262626 - Dark text on light primary */
 
-    --secondary: 220 14% 96%; /* #F1F5F9 - Light slate */
-    --secondary-foreground: 220 9% 46%; /* #64748B */
+    --secondary: 95 75% 97%; /* #F5FCEC - Intervals card color (light green) */
+    --secondary-foreground: 0 0% 15%; /* #262626 */
 
-    --muted: 220 14% 96%; /* #F1F5F9 - Light muted */
-    --muted-foreground: 220 9% 46%; /* #64748B */
+    --muted: 86 25% 92%; /* #F5F5F0 - Neutral muted */
+    --muted-foreground: 0 0% 40%; /* #666666 */
 
-    --accent: 142 76% 36%; /* #16A34A - Same as primary */
+    --accent: 164 45% 50%; /* #48887B - Medium teal for accents */
     --accent-foreground: 0 0% 100%; /* #FFFFFF */
 
-    --destructive: 0 84% 60%; /* #EF4444 - Modern red */
+    --destructive: 0 84% 60%; /* #EF4444 - Red for errors */
     --destructive-foreground: 0 0% 100%; /* #FFFFFF */
 
-    --border: 220 13% 91%; /* #E2E8F0 - Subtle border */
-    --input: 220 14% 96%; /* #F1F5F9 - Input background */
-    --ring: 142 76% 36%; /* #16A34A */
+    --border: 86 15% 85%; /* #E0E0D8 - Subtle border */
+    --input: 95 50% 95%; /* #F0F8E8 - Input background */
+    --ring: 164 45% 50%; /* #48887B */
 
-    --radius: 12px;
+    --radius: 20px; /* Match Figma design */
 
-    /* Modern elevation colors */
-    --elevation-1: 0 0% 95%; /* #F2F2F2 */
-    --elevation-2: 0 0% 90%; /* #E6E6E6 */
-    --elevation-3: 0 0% 85%; /* #D9D9D9 */
-
-    /* Timer specific colors */
-    --timer-work: 77 80% 68%; /* #CFEA6E - Vibrant green for work periods */
-    --timer-rest: 16 100% 66%; /* #FF7F50 - Coral for rest periods */
-    --timer-complete: 218 79% 66%; /* #6495ED - CornflowerBlue for completion */
+    /* Card-specific colors from palette */
+    --card-intervals: 95 75% 97%; /* #F5FCEC - Light green */
+    --card-emom: 176 75% 85%; /* #D8FAF6 - Light teal */
+    
+    /* Additional palette colors */
+    --palette-green-1: 86 60% 75%; /* #C1DA8A */
+    --palette-green-2: 86 40% 60%; /* #9CB17D */
+    --palette-green-3: 86 30% 45%; /* #7A8A60 */
+    --palette-teal-1: 171 40% 60%; /* #8AD9D1 */
+    --palette-teal-2: 171 30% 45%; /* #6EAFA9 */
+    --palette-teal-3: 171 25% 30%; /* #548882 */
 
     /* Material shadows */
     --shadow-sm: 0 1px 3px 0 hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
@@ -57,44 +59,38 @@
   }
 
   .dark {
-    /* Dark mode - Modern dark palette inspired by reference designs */
-    --background: 222 84% 5%; /* #0D1117 - Rich dark background */
-    --foreground: 210 40% 98%; /* #F8F9FA - Soft white text */
+    /* Dark mode - Darker palette with good contrast */
+    --background: 180 15% 8%; /* #0F1E1D - Dark teal background */
+    --foreground: 95 40% 95%; /* #F5F8F0 - Light text */
 
-    --card: 220 13% 9%; /* #161B22 - Dark cards with slight blue tint */
-    --card-foreground: 210 40% 98%; /* #F8F9FA */
+    --card: 180 20% 12%; /* #1B2928 - Dark cards */
+    --card-foreground: 95 40% 95%; /* #F5F8F0 */
 
-    --popover: 220 13% 9%; /* #161B22 */
-    --popover-foreground: 210 40% 98%; /* #F8F9FA */
+    --popover: 180 20% 12%; /* #1B2928 */
+    --popover-foreground: 95 40% 95%; /* #F5F8F0 */
 
-    --primary: 142 76% 36%; /* #16A34A - Modern green */
-    --primary-foreground: 0 0% 100%; /* #FFFFFF */
+    --primary: 171 25% 25%; /* #3C625E - Dark teal for primary */
+    --primary-foreground: 95 40% 95%; /* #F5F8F0 */
 
-    --secondary: 217 19% 12%; /* #1C2128 - Dark slate */
-    --secondary-foreground: 215 20% 65%; /* #8B949E */
+    --secondary: 86 20% 20%; /* #39422F - Dark green for secondary */
+    --secondary-foreground: 95 40% 90%; /* #EAEEE0 */
 
-    --muted: 217 19% 12%; /* #1C2128 - Dark muted */
-    --muted-foreground: 215 20% 65%; /* #8B949E */
+    --muted: 180 15% 15%; /* #242D2C - Dark muted */
+    --muted-foreground: 95 20% 70%; /* #B5BBA8 */
 
-    --accent: 142 76% 36%; /* #16A34A - Same as primary */
+    --accent: 171 40% 40%; /* #5A9B91 - Medium teal accent */
     --accent-foreground: 0 0% 100%; /* #FFFFFF */
 
-    --destructive: 0 84% 60%; /* #EF4444 - Modern red */
+    --destructive: 0 84% 60%; /* #EF4444 - Red for errors */
     --destructive-foreground: 0 0% 100%; /* #FFFFFF */
 
-    --border: 217 19% 12%; /* #1C2128 - Dark border */
-    --input: 217 19% 12%; /* #1C2128 - Input background */
-    --ring: 142 76% 36%; /* #16A34A */
+    --border: 180 15% 18%; /* #2A3332 - Dark border */
+    --input: 180 15% 15%; /* #242D2C - Dark input */
+    --ring: 171 40% 40%; /* #5A9B91 */
 
-    /* Modern elevation colors - dark */
-    --elevation-1: 0 0% 19%; /* #303030 */
-    --elevation-2: 0 0% 21%; /* #353535 */
-    --elevation-3: 0 0% 23%; /* #3A3A3A */
-
-    /* Timer colors - adjusted for dark mode */
-    --timer-work: 77 80% 68%; /* #CFEA6E - Vibrant green for work periods */
-    --timer-rest: 16 100% 66%; /* #FF7F50 - Coral for rest periods */
-    --timer-complete: 218 79% 66%; /* #6495ED - CornflowerBlue for completion */
+    /* Dark card colors */
+    --card-intervals: 86 20% 20%; /* #39422F - Dark green */
+    --card-emom: 171 25% 25%; /* #3C625E - Dark teal */
 
     /* Dark mode shadows */
     --shadow-sm: 0 1px 3px 0 hsl(0 0% 0% / 0.3), 0 1px 2px -1px hsl(0 0% 0% / 0.3);
@@ -111,9 +107,8 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-    font-feature-settings: "cv11", "ss01";
-    font-variation-settings: "opsz" 32;
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 400;
     line-height: 1.6;
   }
 

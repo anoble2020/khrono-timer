@@ -75,46 +75,31 @@ const ModeSelection = () => {
           {/* Mode Selection */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fade-in">
             {modes.map((mode) => {
-              const Icon = mode.icon;
+              const cardBg = mode.id === 'intervals' ? 'bg-card-intervals' : 'bg-card-emom';
               
               return (
                 <div
                   key={mode.id}
+                  className={`flex flex-col justify-between items-center p-0 relative w-full h-56 ${cardBg} rounded-[20px] cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-lg shadow-md`}
                   onClick={() => handleModeSelect(mode.id)}
-                  className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-primary/80 p-6 cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl shadow-lg"
                 >
-                  {/* Background Pattern */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent" />
-                  <div className="absolute -top-4 -right-4 w-24 h-24 bg-white/5 rounded-full" />
-                  <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-white/5 rounded-full" />
-                  
                   {/* Content */}
-                  <div className="relative z-10 flex flex-col h-full min-h-[160px] justify-between">
-                    <div className="flex items-start justify-between">
-                      <div className="flex flex-col">
-                        <div className="text-xs font-medium text-white/70 uppercase tracking-wider mb-1">
-                          WORKOUT
-                        </div>
-                        <div className="font-bold text-2xl text-white mb-2">
-                          {mode.name}
-                        </div>
-                        <div className="text-white/80 text-sm leading-relaxed">
-                          {mode.description}
-                        </div>
-                      </div>
-                      
-                      <div className="p-3 bg-white/15 rounded-xl backdrop-blur-sm">
-                        <Icon className="w-6 h-6 text-white" />
-                      </div>
-                    </div>
-                    
-                    {/* Arrow indicator */}
-                    <div className="flex justify-end mt-4">
-                      <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm group-hover:bg-white/30 transition-colors">
-                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </div>
+                  <div className="flex flex-col items-center justify-center flex-1 px-8 py-6 text-center">
+                    <h2 className="text-2xl font-medium text-foreground mb-3 tracking-wide">
+                      {mode.name.toUpperCase()}
+                    </h2>
+                    <p className="text-sm text-foreground/70 leading-relaxed max-w-[280px]">
+                      {mode.id === 'intervals' 
+                        ? 'Intervals of work and rest, such as Tabata or timed workouts'
+                        : 'Every minute on the minute, with a set amount of work performed at the top of every minute'
+                      }
+                    </p>
+                  </div>
+                  
+                  {/* Start Button */}
+                  <div className="mb-6">
+                    <div className="px-8 py-2 border-2 border-foreground bg-transparent text-foreground font-medium text-sm tracking-wide hover:bg-foreground hover:text-background transition-colors duration-200">
+                      START
                     </div>
                   </div>
                 </div>

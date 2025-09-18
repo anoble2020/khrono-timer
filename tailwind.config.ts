@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Noto Sans JP", "sans"],
-        display: ["Noto Sans JP", "sans"],
+        sans: ["Roboto", "sans-serif"],
+        display: ["Roboto", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -50,6 +50,8 @@ export default {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+          intervals: "hsl(var(--card-intervals))",
+          emom: "hsl(var(--card-emom))",
         },
         timer: {
           work: "hsl(var(--timer-work))",
