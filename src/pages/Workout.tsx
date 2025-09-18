@@ -225,13 +225,6 @@ const Workout = () => {
               </div>
             </div>
             
-            <Button
-              variant="outline"
-              onClick={() => setShowSettings(!showSettings)}
-              className="ripple ml-4"
-            >
-              <Settings className="w-4 h-4" />
-            </Button>
           </div>
         </Card>
       </main>

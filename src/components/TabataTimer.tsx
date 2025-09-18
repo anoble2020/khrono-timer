@@ -3,7 +3,7 @@ import { Card } from '@/components/ui/card';
 import { TimerControls } from './TimerControls';
 import { TimerDisplay } from './TimerDisplay';
 import { ProgressIndicator } from './ProgressIndicator';
-import { TimerConfig, TimerMode } from '@/pages/Workout';
+import { TimerConfig, TimerMode } from '@/pages/Index';
 
 export type TimerState = 'idle' | 'work' | 'rest' | 'setRest' | 'complete';
 

@@ -56,10 +56,10 @@ export const ModeSelector: React.FC<ModeSelectorProps> = ({
                   : 'hover:bg-muted border-2 hover:border-primary/20'
               }`}
             >
-              <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+              <div className={`w-16 h-16 rounded-lg flex items-center justify-center ${
                 isActive ? 'bg-primary-foreground/20' : mode.color
               }`}>
-                <Icon className={`w-4 h-4 ${isActive ? 'text-primary-foreground' : 'text-white'}`} />
+                <Icon className={`w-16 h-16 ${isActive ? 'text-primary-foreground' : 'text-white'}`} />
               </div>
               
               <div className="text-center space-y-1">

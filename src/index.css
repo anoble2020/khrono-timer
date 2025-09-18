@@ -8,46 +8,46 @@
 
 @layer base {
   :root {
-    /* Light mode - New neutral palette */
-    --background: 60 5% 93%; /* #edede9ff - isabelline */
-    --foreground: 20 10% 20%; /* Dark text for contrast */
+    /* Light mode - Modern clean palette */
+    --background: 0 0% 100%; /* #FFFFFF - Pure white */
+    --foreground: 0 0% 0%; /* #000000 - Black text */
 
-    --card: 30 15% 85%; /* #d6ccc2ff - timberwolf */
-    --card-foreground: 20 10% 20%;
+    --card: 0 0% 100%; /* #FFFFFF - White cards */
+    --card-foreground: 0 0% 0%; /* #000000 */
 
-    --popover: 30 15% 85%; /* #d6ccc2ff - timberwolf */
-    --popover-foreground: 20 10% 20%;
+    --popover: 0 0% 100%; /* #FFFFFF */
+    --popover-foreground: 0 0% 0%; /* #000000 */
 
-    --primary: 25 20% 45%; /* #d5bdafff - pale dogwood */
-    --primary-foreground: 60 5% 93%;
+    --primary: 77 80% 68%; /* #CFEA6E - Vibrant green accent */
+    --primary-foreground: 0 0% 0%; /* #000000 */
 
-    --secondary: 30 20% 70%; /* #e3d5caff - champagne-pink */
-    --secondary-foreground: 20 10% 20%;
+    --secondary: 0 0% 97%; /* #F8F8F8 - Light grey */
+    --secondary-foreground: 0 0% 20%; /* #333333 */
 
-    --muted: 30 25% 80%; /* #f5ebe0ff - linen */
-    --muted-foreground: 20 10% 30%;
+    --muted: 0 0% 90%; /* #E6E6E6 - Muted grey */
+    --muted-foreground: 0 0% 40%; /* #666666 */
 
-    --accent: 25 20% 50%; /* #d5bdafff - pale dogwood */
-    --accent-foreground: 60 5% 93%;
+    --accent: 77 80% 68%; /* #CFEA6E - Same as primary */
+    --accent-foreground: 0 0% 0%; /* #000000 */
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 60 5% 93%;
+    --destructive: 0 100% 50%; /* #FF0000 - Red */
+    --destructive-foreground: 0 0% 100%; /* #FFFFFF */
 
-    --border: 30 15% 80%; /* #f5ebe0ff - linen */
-    --input: 30 15% 80%; /* #f5ebe0ff - linen */
-    --ring: 25 20% 45%; /* #d5bdafff - pale dogwood */
+    --border: 0 0% 90%; /* #E6E6E6 - Light border */
+    --input: 0 0% 97%; /* #F8F8F8 - Input background */
+    --ring: 77 80% 68%; /* #CFEA6E */
 
-    --radius: 8px;
+    --radius: 12px;
 
-    /* Material Design elevation colors */
-    --elevation-1: 60 5% 91%; /* Slightly darker isabelline */
-    --elevation-2: 60 5% 89%; /* Medium isabelline */
-    --elevation-3: 60 5% 87%; /* Darker isabelline */
+    /* Modern elevation colors */
+    --elevation-1: 0 0% 95%; /* #F2F2F2 */
+    --elevation-2: 0 0% 90%; /* #E6E6E6 */
+    --elevation-3: 0 0% 85%; /* #D9D9D9 */
 
     /* Timer specific colors */
-    --timer-work: 120 100% 25%; /* Green for work periods */
-    --timer-rest: 14 100% 57%; /* Orange for rest periods */
-    --timer-complete: 260 100% 47%; /* Purple for completion */
+    --timer-work: 77 80% 68%; /* #CFEA6E - Vibrant green for work periods */
+    --timer-rest: 16 100% 66%; /* #FF7F50 - Coral for rest periods */
+    --timer-complete: 218 79% 66%; /* #6495ED - CornflowerBlue for completion */
 
     /* Material shadows */
     --shadow-sm: 0 1px 3px 0 hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
@@ -57,44 +57,44 @@
   }
 
   .dark {
-    /* Dark mode - New dark green palette */
-    --background: 120 100% 8%; /* #132a13ff - dark-green */
-    --foreground: 60 100% 90%; /* #ecf39eff - mindaro */
+    /* Dark mode - Modern dark palette */
+    --background: 0 0% 10%; /* #1A1A1A - Deep dark */
+    --foreground: 0 0% 100%; /* #FFFFFF - White text */
 
-    --card: 120 50% 15%; /* #31572cff - hunter-green */
-    --card-foreground: 60 100% 90%;
+    --card: 0 0% 17%; /* #2C2C2C - Dark cards */
+    --card-foreground: 0 0% 100%; /* #FFFFFF */
 
-    --popover: 120 50% 15%; /* #31572cff - hunter-green */
-    --popover-foreground: 60 100% 90%;
+    --popover: 0 0% 17%; /* #2C2C2C */
+    --popover-foreground: 0 0% 100%; /* #FFFFFF */
 
-    --primary: 60 100% 90%; /* #ecf39eff - mindaro */
-    --primary-foreground: 120 100% 8%;
+    --primary: 77 80% 68%; /* #CFEA6E - Vibrant green accent */
+    --primary-foreground: 0 0% 10%; /* #1A1A1A */
 
-    --secondary: 120 40% 25%; /* #4f772dff - fern-green */
-    --secondary-foreground: 60 100% 90%;
+    --secondary: 0 0% 15%; /* #262626 - Dark grey */
+    --secondary-foreground: 0 0% 80%; /* #CCCCCC */
 
-    --muted: 120 30% 35%; /* #90a955ff - moss-green */
-    --muted-foreground: 60 100% 80%;
+    --muted: 0 0% 25%; /* #404040 - Muted dark */
+    --muted-foreground: 0 0% 60%; /* #999999 */
 
-    --accent: 120 30% 35%; /* #90a955ff - moss-green */
-    --accent-foreground: 60 100% 90%;
+    --accent: 77 80% 68%; /* #CFEA6E - Same as primary */
+    --accent-foreground: 0 0% 10%; /* #1A1A1A */
 
-    --destructive: 0 62% 30%;
-    --destructive-foreground: 60 100% 90%;
+    --destructive: 0 100% 71%; /* #FF6B6B - Softer red */
+    --destructive-foreground: 0 0% 10%; /* #1A1A1A */
 
-    --border: 120 40% 25%; /* #4f772dff - fern-green */
-    --input: 120 40% 25%; /* #4f772dff - fern-green */
-    --ring: 60 100% 90%; /* #ecf39eff - mindaro */
+    --border: 0 0% 25%; /* #404040 - Dark border */
+    --input: 0 0% 15%; /* #262626 - Input background */
+    --ring: 77 80% 68%; /* #CFEA6E */
 
-    /* Material Design elevation colors - dark */
-    --elevation-1: 120 100% 10%; /* Slightly lighter dark-green */
-    --elevation-2: 120 100% 12%; /* Medium dark-green */
-    --elevation-3: 120 100% 14%; /* Lighter dark-green */
+    /* Modern elevation colors - dark */
+    --elevation-1: 0 0% 19%; /* #303030 */
+    --elevation-2: 0 0% 21%; /* #353535 */
+    --elevation-3: 0 0% 23%; /* #3A3A3A */
 
     /* Timer colors - adjusted for dark mode */
-    --timer-work: 120 60% 40%;
-    --timer-rest: 14 80% 50%;
-    --timer-complete: 260 60% 60%;
+    --timer-work: 77 80% 68%; /* #CFEA6E - Vibrant green for work periods */
+    --timer-rest: 16 100% 66%; /* #FF7F50 - Coral for rest periods */
+    --timer-complete: 218 79% 66%; /* #6495ED - CornflowerBlue for completion */
 
     /* Dark mode shadows */
     --shadow-sm: 0 1px 3px 0 hsl(0 0% 0% / 0.3), 0 1px 2px -1px hsl(0 0% 0% / 0.3);
@@ -111,9 +111,10 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Noto Sans JP', sans;
+    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     font-feature-settings: "cv11", "ss01";
     font-variation-settings: "opsz" 32;
+    line-height: 1.6;
   }
 
   /* Material Design button ripple effect */
@@ -156,20 +157,35 @@
     animation: timer-pulse 1s ease-in-out infinite;
   }
 
-  /* Material elevation utilities */
+  /* Modern elevation utilities */
   .elevation-1 {
     background: hsl(var(--elevation-1));
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 1px 3px 0 hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
   }
 
   .elevation-2 {
     background: hsl(var(--elevation-2));
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 4px 6px -1px hsl(0 0% 0% / 0.1), 0 2px 4px -2px hsl(0 0% 0% / 0.1);
   }
 
   .elevation-3 {
     background: hsl(var(--elevation-3));
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 10px 15px -3px hsl(0 0% 0% / 0.1), 0 4px 6px -4px hsl(0 0% 0% / 0.1);
+  }
+
+  /* Modern card styling */
+  .card-modern {
+    @apply bg-card border border-border/20 rounded-xl shadow-sm hover:shadow-md transition-all duration-200;
+  }
+
+  /* Modern button styling */
+  .btn-modern {
+    @apply rounded-xl font-medium transition-all duration-200 hover:scale-105 active:scale-95;
+  }
+
+  /* Modern input styling */
+  .input-modern {
+    @apply rounded-xl border-border/20 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200;
   }
 
   /* Custom timer colors */
