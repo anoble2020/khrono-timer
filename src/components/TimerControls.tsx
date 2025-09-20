@@ -39,9 +39,9 @@ export const TimerControls: React.FC<TimerControlsProps> = ({
         variant="outline"
         size="lg"
         onClick={onReset}
-        className="ripple h-12 w-12 rounded-full border-2 hover:bg-muted shadow-material-sm"
+        className="ripple h-16 w-16 rounded-full border-2 hover:bg-muted shadow-material-sm"
       >
-        <RotateCcw className="w-5 h-5" />
+        <RotateCcw className="w-8 h-8" />
       </Button>
     </div>
   );

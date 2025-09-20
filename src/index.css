@@ -8,43 +8,43 @@
 
 @layer base {
   :root {
-    /* Light mode - Modern clean palette */
-    --background: 0 0% 100%; /* #FFFFFF - Pure white */
-    --foreground: 0 0% 0%; /* #000000 - Black text */
+    /* Light mode - Cohesive palette with only #F5FCEC and #D8FAF6 */
+    --background: 0 0% 100%; /* #FFFFFF - Pure white background */
+    --foreground: 0 0% 15%; /* #262626 - Dark text for contrast */
 
-    --card: 0 0% 100%; /* #FFFFFF - White cards */
-    --card-foreground: 0 0% 0%; /* #000000 */
+    --card: 86 73% 96%; /* #F5FCEC - Light green cards */
+    --card-foreground: 0 0% 15%; /* #262626 - Dark text */
 
-    --popover: 0 0% 100%; /* #FFFFFF */
-    --popover-foreground: 0 0% 0%; /* #000000 */
+    --popover: 86 73% 96%; /* #F5FCEC */
+    --popover-foreground: 0 0% 15%; /* #262626 */
 
-    --primary: 77 80% 68%; /* #CFEA6E - Vibrant green accent */
-    --primary-foreground: 0 0% 0%; /* #000000 */
+    --primary: 86 73% 96%; /* #F5FCEC - Primary color */
+    --primary-foreground: 0 0% 15%; /* #262626 */
 
-    --secondary: 0 0% 97%; /* #F8F8F8 - Light grey */
-    --secondary-foreground: 0 0% 20%; /* #333333 */
+    --secondary: 180 100% 95%; /* #D8FAF6 - Secondary color */
+    --secondary-foreground: 0 0% 25%; /* #404040 - Dark text */
 
-    --muted: 0 0% 90%; /* #E6E6E6 - Muted grey */
-    --muted-foreground: 0 0% 40%; /* #666666 */
+    --muted: 0 0% 95%; /* #F2F2F2 - Light grey */
+    --muted-foreground: 0 0% 35%; /* #595959 - Medium grey text */
 
-    --accent: 77 80% 68%; /* #CFEA6E - Same as primary */
-    --accent-foreground: 0 0% 0%; /* #000000 */
+    --accent: 180 100% 95%; /* #D8FAF6 - Accent color */
+    --accent-foreground: 0 0% 15%; /* #262626 - Dark text */
 
     --destructive: 0 100% 50%; /* #FF0000 - Red */
     --destructive-foreground: 0 0% 100%; /* #FFFFFF */
 
-    --border: 0 0% 90%; /* #E6E6E6 - Light border */
-    --input: 0 0% 97%; /* #F8F8F8 - Input background */
-    --ring: 77 80% 68%; /* #CFEA6E */
+    --border: 0 0% 90%; /* #E6E6E6 - Light grey border */
+    --input: 0 0% 95%; /* #F2F2F2 - Light grey input background */
+    --ring: 86 73% 96%; /* #F5FCEC */
 
-    --radius: 12px;
+    --radius: 20px;
 
-    /* Modern elevation colors */
-    --elevation-1: 0 0% 95%; /* #F2F2F2 */
-    --elevation-2: 0 0% 90%; /* #E6E6E6 */
-    --elevation-3: 0 0% 85%; /* #D9D9D9 */
+    /* Modern elevation colors - shades of white/grey */
+    --elevation-1: 0 0% 98%; /* #FAFAFA - Very light grey */
+    --elevation-2: 0 0% 96%; /* #F5F5F5 - Light grey */
+    --elevation-3: 0 0% 94%; /* #F0F0F0 - Medium light grey */
 
-    /* Timer specific colors */
+    /* Timer specific colors - restored original vibrant colors */
     --timer-work: 77 80% 68%; /* #CFEA6E - Vibrant green for work periods */
     --timer-rest: 16 100% 66%; /* #FF7F50 - Coral for rest periods */
     --timer-complete: 218 79% 66%; /* #6495ED - CornflowerBlue for completion */
@@ -57,41 +57,41 @@
   }
 
   .dark {
-    /* Dark mode - Modern dark palette */
-    --background: 0 0% 10%; /* #1A1A1A - Deep dark */
-    --foreground: 0 0% 100%; /* #FFFFFF - White text */
+    /* Dark mode - Cohesive palette with #252525 background and #3A3A3A cards */
+    --background: 0 0% 15%; /* #252525 - Dark background */
+    --foreground: 0 0% 95%; /* #F2F2F2 - Light text for contrast */
 
-    --card: 0 0% 17%; /* #2C2C2C - Dark cards */
-    --card-foreground: 0 0% 100%; /* #FFFFFF */
+    --card: 0 0% 23%; /* #3A3A3A - Card background */
+    --card-foreground: 0 0% 95%; /* #F2F2F2 - Light text */
 
-    --popover: 0 0% 17%; /* #2C2C2C */
-    --popover-foreground: 0 0% 100%; /* #FFFFFF */
+    --popover: 0 0% 23%; /* #3A3A3A */
+    --popover-foreground: 0 0% 95%; /* #F2F2F2 */
 
-    --primary: 77 80% 68%; /* #CFEA6E - Vibrant green accent */
-    --primary-foreground: 0 0% 10%; /* #1A1A1A */
+    --primary: 86 73% 96%; /* #F5FCEC - Accent color for buttons */
+    --primary-foreground: 0 0% 15%; /* #262626 */
 
-    --secondary: 0 0% 15%; /* #262626 - Dark grey */
-    --secondary-foreground: 0 0% 80%; /* #CCCCCC */
+    --secondary: 0 0% 28%; /* Slightly lighter than card */
+    --secondary-foreground: 0 0% 85%; /* #D9D9D9 - Light text */
 
-    --muted: 0 0% 25%; /* #404040 - Muted dark */
-    --muted-foreground: 0 0% 60%; /* #999999 */
+    --muted: 0 0% 32%; /* Medium dark grey */
+    --muted-foreground: 0 0% 75%; /* #BFBFBF - Medium light text */
 
-    --accent: 77 80% 68%; /* #CFEA6E - Same as primary */
-    --accent-foreground: 0 0% 10%; /* #1A1A1A */
+    --accent: 86 73% 96%; /* #F5FCEC - Accent color */
+    --accent-foreground: 0 0% 15%; /* #262626 */
 
     --destructive: 0 100% 71%; /* #FF6B6B - Softer red */
-    --destructive-foreground: 0 0% 10%; /* #1A1A1A */
+    --destructive-foreground: 0 0% 95%; /* #F2F2F2 */
 
-    --border: 0 0% 25%; /* #404040 - Dark border */
-    --input: 0 0% 15%; /* #262626 - Input background */
-    --ring: 77 80% 68%; /* #CFEA6E */
+    --border: 0 0% 30%; /* Dark grey border */
+    --input: 0 0% 28%; /* Medium dark grey input background */
+    --ring: 86 73% 96%; /* #F5FCEC */
 
     /* Modern elevation colors - dark */
-    --elevation-1: 0 0% 19%; /* #303030 */
-    --elevation-2: 0 0% 21%; /* #353535 */
-    --elevation-3: 0 0% 23%; /* #3A3A3A */
+    --elevation-1: 0 0% 20%; /* Slightly lighter than background */
+    --elevation-2: 0 0% 25%; /* Medium elevation */
+    --elevation-3: 0 0% 30%; /* Higher elevation */
 
-    /* Timer colors - adjusted for dark mode */
+    /* Timer colors - restored original vibrant colors for dark mode */
     --timer-work: 77 80% 68%; /* #CFEA6E - Vibrant green for work periods */
     --timer-rest: 16 100% 66%; /* #FF7F50 - Coral for rest periods */
     --timer-complete: 218 79% 66%; /* #6495ED - CornflowerBlue for completion */
@@ -111,7 +111,7 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-feature-settings: "cv11", "ss01";
     font-variation-settings: "opsz" 32;
     line-height: 1.6;
@@ -176,6 +176,213 @@
   /* Modern card styling */
   .card-modern {
     @apply bg-card border border-border/20 rounded-xl shadow-sm hover:shadow-md transition-all duration-200;
+  }
+
+  /* Dark mode gradient cards */
+  .dark .card-modern {
+    background: linear-gradient(135deg, 
+      hsl(var(--card)) 0%, 
+      hsl(0 0% 28%) 50%, 
+      hsl(0 0% 26%) 100%
+    );
+    border: 1px solid hsl(0 0% 35%);
+    box-shadow: 
+      0 4px 6px -1px hsl(0 0% 0% / 0.3), 
+      0 2px 4px -2px hsl(0 0% 0% / 0.2),
+      inset 0 1px 0 hsl(0 0% 100% / 0.1);
+  }
+
+  .dark .card-modern:hover {
+    box-shadow: 
+      0 10px 15px -3px hsl(0 0% 0% / 0.4), 
+      0 4px 6px -4px hsl(0 0% 0% / 0.3),
+      inset 0 1px 0 hsl(0 0% 100% / 0.15);
+  }
+
+  /* Figma-style mode selection cards */
+  .mode-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+    position: relative;
+    width: 360px;
+    height: 221px;
+    border-radius: 20px;
+    border: none;
+    box-shadow: none;
+  }
+
+  .mode-card.intervals {
+    background: #F5FCEC;
+  }
+
+  .mode-card.emom {
+    background: #D8FAF6;
+  }
+
+  /* Dark mode gradient for mode cards */
+  .dark .mode-card.intervals {
+    background: linear-gradient(135deg, 
+      hsl(0 0% 23%) 0%, 
+      hsl(0 0% 28%) 50%, 
+      hsl(0 0% 26%) 100%
+    );
+    border: 1px solid hsl(0 0% 35%);
+    box-shadow: 
+      0 4px 6px -1px hsl(0 0% 0% / 0.3), 
+      0 2px 4px -2px hsl(0 0% 0% / 0.2),
+      inset 0 1px 0 hsl(0 0% 100% / 0.1);
+  }
+
+  .dark .mode-card.emom {
+    background: linear-gradient(135deg, 
+      hsl(0 0% 23%) 0%, 
+      hsl(0 0% 28%) 50%, 
+      hsl(0 0% 26%) 100%
+    );
+    border: 1px solid hsl(0 0% 35%);
+    box-shadow: 
+      0 4px 6px -1px hsl(0 0% 0% / 0.3), 
+      0 2px 4px -2px hsl(0 0% 0% / 0.2),
+      inset 0 1px 0 hsl(0 0% 100% / 0.1);
+  }
+
+  /* Dark mode text colors for mode cards */
+  .dark .mode-card-title {
+    color: #FFFFFF !important;
+  }
+
+  .dark .mode-card-description {
+    color: #FFFFFF !important;
+  }
+
+  .dark .mode-card-button-text {
+    color: #FFFFFF !important;
+  }
+
+  .dark .mode-card-button {
+    border-color: #FFFFFF !important;
+  }
+
+  .dark .mode-card-button:hover {
+    background: #FFFFFF !important;
+  }
+
+  .dark .mode-card-button:hover .mode-card-button-text {
+    color: #000000 !important;
+  }
+
+  .mode-card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px;
+    gap: 15px;
+    margin: 0 auto;
+    width: 360px;
+    height: 134px;
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+  }
+
+  .mode-card-title {
+    width: 310px;
+    height: 23px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 23px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    color: #000000;
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+    margin: 0;
+  }
+
+  .mode-card-description {
+    width: 310px;
+    height: 46px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 23px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    color: #000000;
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+    margin: 0;
+  }
+
+  .mode-card-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0px 25px 25px;
+    gap: 13px;
+    margin: 0 auto;
+    width: 360px;
+    height: 64px;
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+  }
+
+  .mode-card-button {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 16px;
+    width: 77px;
+    height: 39px;
+    border: 2px solid #000000;
+    border-radius: 4px;
+    background: transparent;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .mode-card-button-text {
+    width: 45px;
+    height: 15px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 15px;
+    text-align: center;
+    letter-spacing: 1.08px;
+    text-transform: uppercase;
+    color: #000000;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  }
+
+  .mode-card-button:hover {
+    background: #000000;
+  }
+
+  .mode-card-button:hover .mode-card-button-text {
+    color: #FFFFFF;
   }
 
   /* Modern button styling */

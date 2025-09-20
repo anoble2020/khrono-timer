@@ -27,7 +27,7 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
 
   return (
     <div className="space-y-2">
-      <div className="flex justify-between items-center text-sm text-muted-foreground">
+      <div className="flex justify-between items-center text-sm text-secondary-foreground font-medium">
         <span>Workout Progress</span>
         <span>{Math.round(progress * 100)}%</span>
       </div>

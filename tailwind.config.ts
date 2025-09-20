@@ -13,10 +13,10 @@ export default {
       },
     },
     extend: {
-      fontFamily: {
-        sans: ["Noto Sans JP", "sans"],
-        display: ["Noto Sans JP", "sans"],
-      },
+    fontFamily: {
+      sans: ["Roboto", "sans-serif"],
+      display: ["Roboto", "sans-serif"],
+    },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

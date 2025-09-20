@@ -45,7 +45,7 @@ const Index = () => {
   const modes = [
     {
       id: 'intervals' as TimerMode,
-      name: 'Intervals',
+      name: 'INTERVALS',
       description: 'Intervals of work and rest',
       icon: Timer,
       color: 'bg-primary'
@@ -93,14 +93,14 @@ const Index = () => {
               {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </Button>
             {currentMode && (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setShowSettings(!showSettings)}
-                className="ripple"
-              >
-                <Settings className="w-5 h-5" />
-              </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setShowSettings(!showSettings)}
+              className="ripple"
+            >
+              <Settings className="w-5 h-5" />
+            </Button>
             )}
           </div>
         </div>
@@ -111,58 +111,59 @@ const Index = () => {
           /* Mode Selection */
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-8">
-              <p className="text-muted-foreground text-lg">
+              <p className="text-secondary-foreground text-lg font-medium">
                 Select a workout mode to get started
               </p>
             </div>
 
-            <Card className="card-modern p-8 animate-fade-in">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="animate-fade-in">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 justify-items-center">
                 {modes.map((mode) => {
-                  const Icon = mode.icon;
+                  const descriptions = {
+                    intervals: "Intervals of work and rest, such as Tabata or timed workouts",
+                    emom: "Every minute on the minute, with a set amount of work performed at the top of every minute."
+                  };
                   
                   return (
-                    <Button
+                    <div
                       key={mode.id}
-                      variant="outline"
+                      className={`mode-card ${mode.id}`}
                       onClick={() => handleModeChange(mode.id)}
-                      className={`btn-modern h-auto p-8 flex-col space-y-6 hover:scale-105 active:scale-95 border-2 hover:border-primary/30 transition-all duration-300 ${mode.color} text-white shadow-lg hover:shadow-xl`}
                     >
-                      <div className="w-20 h-20 rounded-2xl bg-white/20 flex items-center justify-center backdrop-blur-sm">
-                        <Icon className="w-12 h-12 text-white" />
+                      <div className="mode-card-body">
+                        <h3 className="mode-card-title">{mode.name}</h3>
+                        <p className="mode-card-description">{descriptions[mode.id]}</p>
                       </div>
-                      
-                      <div className="text-center space-y-2">
-                        <div className="font-bold text-2xl text-white">{mode.name}</div>
-                        <div className="text-white/90 text-sm">
-                          {mode.description}
-                        </div>
+                      <div className="mode-card-footer">
+                        <button className="mode-card-button">
+                          <span className="mode-card-button-text">START</span>
+                        </button>
                       </div>
-                    </Button>
+                    </div>
                   );
                 })}
               </div>
-            </Card>
+            </div>
           </div>
         ) : (
           /* Workout Mode */
           <>
-            {/* Main Timer */}
-            <div className="flex flex-col lg:flex-row gap-6">
-              <div className="flex-1">
-                <TabataTimer 
-                  config={timerConfig}
-                  mode={currentMode}
-                />
-              </div>
-              
-              {/* Settings Panel */}
-              {showSettings && (
-                <div className="lg:w-80 animate-slide-up">
+        {/* Main Timer */}
+        <div className="flex flex-col lg:flex-row gap-6">
+          <div className="flex-1">
+            <TabataTimer 
+              config={timerConfig}
+              mode={currentMode}
+            />
+          </div>
+          
+          {/* Settings Panel */}
+          {showSettings && (
+            <div className="lg:w-80 animate-slide-up">
                   <Card className="card-modern p-6 space-y-6">
                     <div>
                       <h3 className="text-xl font-bold text-foreground mb-2">Timer Settings</h3>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-secondary-foreground font-medium">
                         Customize your {currentMode.toUpperCase()} workout
                       </p>
                     </div>
@@ -275,18 +276,18 @@ const Index = () => {
                       </div>
                     </div>
                   </Card>
-                </div>
-              )}
             </div>
+          )}
+        </div>
 
             {/* Workout Details */}
             <Card className="card-modern p-6 animate-fade-in">
               <div className="flex items-center justify-between">
                 <div className="text-center space-y-3 flex-1">
                   <h3 className="text-xl font-bold text-foreground">
-                    {currentMode.toUpperCase()} Workout
-                  </h3>
-                  <div className="flex justify-center space-x-8 text-muted-foreground">
+              {currentMode.toUpperCase()} WORKOUT
+            </h3>
+                  <div className="flex justify-center space-x-8 text-secondary-foreground">
                     {currentMode === 'intervals' && (
                       <>
                         <div className="flex flex-col items-center">
@@ -315,11 +316,11 @@ const Index = () => {
                         <span className="text-lg font-bold text-foreground">{timerConfig.sets}</span>
                       </div>
                     )}
-                  </div>
+            </div>
                 </div>
                 
-              </div>
-            </Card>
+          </div>
+        </Card>
           </>
         )}
       </main>

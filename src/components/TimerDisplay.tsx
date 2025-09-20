@@ -71,11 +71,11 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
       </div>
 
       {/* Round and Set Info */}
-      <div className="flex justify-center space-x-8 text-muted-foreground">
+      <div className="flex justify-center space-x-8 text-secondary-foreground">
         <div className="text-center">
           <div className="text-2xl font-bold text-foreground">{currentRound}</div>
-          <div className="text-sm uppercase tracking-wider">Round</div>
-          <div className="text-xs">of {totalRounds}</div>
+          <div className="text-sm uppercase tracking-wider font-medium">Round</div>
+          <div className="text-xs font-medium">of {totalRounds}</div>
         </div>
         
         {totalSets > 1 && (
@@ -85,8 +85,8 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
         {totalSets > 1 && (
           <div className="text-center">
             <div className="text-2xl font-bold text-foreground">{currentSet}</div>
-            <div className="text-sm uppercase tracking-wider">Set</div>
-            <div className="text-xs">of {totalSets}</div>
+            <div className="text-sm uppercase tracking-wider font-medium">Set</div>
+            <div className="text-xs font-medium">of {totalSets}</div>
           </div>
         )}
       </div>
@@ -97,7 +97,7 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
           <div className="text-2xl font-bold text-timer-complete mb-2">
             🎉 Workout Complete!
           </div>
-          <div className="text-muted-foreground">
+          <div className="text-secondary-foreground font-medium">
             Great job finishing your {totalSets > 1 ? `${totalSets} sets of ` : ''}{totalRounds} rounds!
           </div>
         </div>
