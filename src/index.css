@@ -30,7 +30,7 @@
     --accent: 180 100% 95%; /* #D8FAF6 - Accent color */
     --accent-foreground: 0 0% 15%; /* #262626 - Dark text */
 
-    --destructive: 0 100% 50%; /* #FF0000 - Red */
+    --destructive: 0 84% 60%; /* #EF4444 - Red for errors */
     --destructive-foreground: 0 0% 100%; /* #FFFFFF */
 
     --border: 0 0% 90%; /* #E6E6E6 - Light grey border */

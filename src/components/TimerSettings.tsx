@@ -127,7 +127,7 @@ export const TimerSettings: React.FC<TimerSettingsProps> = ({
           unit="rounds"
         />
 
-        {mode !== 'tabata' && (
+        {mode !== 'intervals' && (
           <>
             <SettingControl
               label="Sets"

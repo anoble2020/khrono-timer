@@ -73,31 +73,37 @@ const ModeSelection = () => {
           </div>
 
           {/* Mode Selection */}
-          <Card className="elevation-2 border-0 p-8 animate-fade-in">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {modes.map((mode) => {
-                const Icon = mode.icon;
-                
-                return (
-                  <Button
-                    key={mode.id}
-                    variant="outline"
-                    onClick={() => handleModeSelect(mode.id)}
-                    className={`ripple h-auto p-8 flex-col space-y-4 hover:bg-muted border-2 hover:border-primary/30 transition-all duration-200 backdrop-blur-sm ${mode.color} text-white`}
-                  >
-                    <Icon className="w-16 h-16 text-white" />
-                    
-                    <div className="text-center space-y-2">
-                      <div className="font-bold text-xl text-white">{mode.name}</div>
-                      <div className="text-white/80">
-                        {mode.description}
-                      </div>
-                    </div>
-                  </Button>
-                );
-              })}
-            </div>
-          </Card>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fade-in">
+            {modes.map((mode) => {
+              const cardBg = mode.id === 'intervals' ? 'bg-card-intervals' : 'bg-card-emom';
+              
+              return (
+                <div
+                  key={mode.id}
+                  className={`flex flex-col justify-center items-center p-0 relative w-full h-56 ${cardBg} rounded-[20px] cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-lg shadow-md`}
+                  onClick={() => handleModeSelect(mode.id)}
+                >
+                  {/* Main Content */}
+                  <div className="flex flex-col items-center justify-center text-center px-8 mb-8">
+                    <h2 className="text-2xl font-bold text-black mb-4 tracking-normal">
+                      {mode.name.toUpperCase()}
+                    </h2>
+                    <p className="text-sm text-black/80 leading-relaxed max-w-[280px]">
+                      {mode.id === 'intervals' 
+                        ? 'Intervals of work and rest, such as Tabata or timed workouts'
+                        : 'Every minute on the minute, with a set amount of work performed at the top of every minute'
+                      }
+                    </p>
+                  </div>
+                  
+                  {/* Start Button */}
+                  <div className="px-6 py-2 border-2 border-black bg-transparent text-black font-medium text-sm tracking-wide hover:bg-black hover:text-white transition-colors duration-200">
+                    START
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </main>
     </div>

@@ -50,6 +50,8 @@ export default {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+          intervals: "hsl(var(--card-intervals))",
+          emom: "hsl(var(--card-emom))",
         },
         timer: {
           work: "hsl(var(--timer-work))",
