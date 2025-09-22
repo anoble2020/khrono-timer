@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Settings, Sun, Moon, Home, Timer, Zap } from 'lucide-react';
-import logo from '/src/assets/kanji_clock_black.png';
+import { Settings, Home, Timer, Zap } from 'lucide-react';
+import logo from '/src/assets/logo.png';
 import { TabataTimer } from '@/components/TabataTimer';
 
 export type TimerMode = 'intervals' | 'emom';
@@ -16,7 +16,6 @@ export interface TimerConfig {
 }
 
 const Index = () => {
-  const [isDark, setIsDark] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [currentMode, setCurrentMode] = useState<TimerMode | null>(null);
   
@@ -27,10 +26,7 @@ const Index = () => {
 
   const [timerConfig, setTimerConfig] = useState<TimerConfig>(defaultConfigs.intervals);
 
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-    document.documentElement.classList.toggle('dark');
-  };
+  // Theme toggle removed - defaulting to dark mode
 
   const handleModeChange = (mode: TimerMode) => {
     setCurrentMode(mode);
@@ -60,15 +56,15 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background transition-colors duration-300">
+    <div className="min-h-screen gradient-background transition-colors duration-300">
       {/* Header */}
-      <header className="elevation-1 border-b border-border/20 sticky top-0 z-50 backdrop-blur-sm">
+      <header className="glass-dark sticky top-0 z-50 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <img src={logo} alt="ugoku timer" className="w-8 h-8" />
+            <img src={logo} alt="khrono timer" className="w-8 h-8" />
             <div className="flex flex-col">
-            <h1 className="text-xl font-bold text-foreground">ugoku</h1>
-            <div className="text-xs text-foreground">a simple workout timer</div>
+            <h1 className="text-xl font-bold text-foreground">khrono</h1>
+            <div className="text-xs text-muted-foreground">a simple workout timer</div>
             </div>
           </div>
           
@@ -84,14 +80,6 @@ const Index = () => {
                 <Home className="w-5 h-5" />
               </Button>
             )}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              className="ripple"
-            >
-              {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </Button>
             {currentMode && (
             <Button
               variant="ghost"
@@ -111,7 +99,7 @@ const Index = () => {
           /* Mode Selection */
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-8">
-              <p className="text-secondary-foreground text-lg font-medium">
+              <p className="text-muted-foreground text-lg font-medium">
                 Select a workout mode to get started
               </p>
             </div>
@@ -163,7 +151,7 @@ const Index = () => {
                   <Card className="card-modern p-6 space-y-6">
                     <div>
                       <h3 className="text-xl font-bold text-foreground mb-2">Timer Settings</h3>
-                      <p className="text-sm text-secondary-foreground font-medium">
+                      <p className="text-sm text-muted-foreground font-medium">
                         Customize your {currentMode.toUpperCase()} workout
                       </p>
                     </div>
@@ -182,7 +170,7 @@ const Index = () => {
                               >
                                 -
                               </Button>
-                              <div className="flex-1 text-center font-mono text-lg font-bold bg-muted/50 rounded-xl py-2">
+                              <div className="flex-1 text-center font-mono text-lg font-bold bg-card rounded-xl py-2 text-foreground">
                                 {timerConfig.workTime}s
                               </div>
                               <Button
@@ -207,7 +195,7 @@ const Index = () => {
                               >
                                 -
                               </Button>
-                              <div className="flex-1 text-center font-mono text-lg font-bold bg-muted/50 rounded-xl py-2">
+                              <div className="flex-1 text-center font-mono text-lg font-bold bg-card rounded-xl py-2 text-foreground">
                                 {timerConfig.restTime}s
                               </div>
                               <Button
@@ -235,7 +223,7 @@ const Index = () => {
                             >
                               -
                             </Button>
-                            <div className="flex-1 text-center font-mono text-lg font-bold bg-muted/50 rounded-xl py-2">
+                            <div className="flex-1 text-center font-mono text-lg font-bold bg-card rounded-xl py-2 text-foreground">
                               {timerConfig.rounds} min
                             </div>
                             <Button
@@ -261,7 +249,7 @@ const Index = () => {
                           >
                             -
                           </Button>
-                          <div className="flex-1 text-center font-mono text-lg font-bold bg-muted/50 rounded-xl py-2">
+                          <div className="flex-1 text-center font-mono text-lg font-bold bg-card rounded-xl py-2 text-foreground">
                             {timerConfig.rounds}
                           </div>
                           <Button
@@ -287,7 +275,7 @@ const Index = () => {
                   <h3 className="text-xl font-bold text-foreground">
               {currentMode.toUpperCase()} WORKOUT
             </h3>
-                  <div className="flex justify-center space-x-8 text-secondary-foreground">
+                  <div className="flex justify-center space-x-8 text-muted-foreground">
                     {currentMode === 'intervals' && (
                       <>
                         <div className="flex flex-col items-center">

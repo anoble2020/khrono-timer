@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Sun, Moon, Timer, Zap } from 'lucide-react';
-import logo from '/src/assets/kanji_clock_black.png';
+import { Timer, Zap } from 'lucide-react';
+import logo from '/src/assets/logo.png';
 
 export type TimerMode = 'intervals' | 'emom';
 
@@ -25,40 +25,29 @@ const modes = [
 ];
 
 const ModeSelection = () => {
-  const [isDark, setIsDark] = useState(false);
   const navigate = useNavigate();
 
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-    document.documentElement.classList.toggle('dark');
-  };
+  // Theme toggle removed - defaulting to dark mode
 
   const handleModeSelect = (mode: TimerMode) => {
     navigate(`/workout/${mode}`);
   };
 
   return (
-    <div className="min-h-screen bg-background transition-colors duration-300">
+    <div className="min-h-screen gradient-background transition-colors duration-300">
       {/* Header */}
-      <header className="elevation-1 border-b border-border/20 sticky top-0 z-50 backdrop-blur-sm">
+      <header className="glass-dark sticky top-0 z-50 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <img src={logo} alt="ugoku timer" className="w-8 h-8" />
+            <img src={logo} alt="khrono timer" className="w-8 h-8" />
             <div className="flex flex-col">
               <h1 className="text-xl font-bold text-foreground">ugoku</h1>
-              <div className="text-xs text-foreground">a simple workout timer</div>
+              <div className="text-xs text-muted-foreground">a simple workout timer</div>
             </div>
           </div>
           
           <div className="flex items-center space-x-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              className="ripple"
-            >
-              {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </Button>
+            {/* Theme toggle removed - defaulting to dark mode */}
           </div>
         </div>
       </header>

@@ -3,14 +3,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { TabataTimer } from '@/components/TabataTimer';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Settings, Sun, Moon, Home } from 'lucide-react';
-import logo from '/src/assets/kanji_clock_black.png';
+import { ArrowLeft, Settings, Home } from 'lucide-react';
+import logo from '/src/assets/logo.png';
 import { TimerMode, TimerConfig } from './Index';
 
 const Workout = () => {
   const { mode } = useParams<{ mode: TimerMode }>();
   const navigate = useNavigate();
-  const [isDark, setIsDark] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   
   const defaultConfigs: Record<TimerMode, TimerConfig> = {
@@ -22,10 +21,7 @@ const Workout = () => {
     defaultConfigs[mode as TimerMode] || defaultConfigs.intervals
   );
 
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-    document.documentElement.classList.toggle('dark');
-  };
+  // Theme toggle removed - defaulting to dark mode
 
   const getModeDisplayName = (mode: string) => {
     switch (mode) {
@@ -36,15 +32,15 @@ const Workout = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background transition-colors duration-300">
+    <div className="min-h-screen gradient-background transition-colors duration-300">
       {/* Header */}
-      <header className="elevation-1 border-b border-border/20 sticky top-0 z-50 backdrop-blur-sm">
+      <header className="glass-dark sticky top-0 z-50 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <img src={logo} alt="ugoku timer" className="w-8 h-8" />
+            <img src={logo} alt="khrono timer" className="w-8 h-8" />
             <div className="flex flex-col">
               <h1 className="text-xl font-bold text-foreground">ugoku</h1>
-              <div className="text-xs text-foreground">a simple workout timer</div>
+              <div className="text-xs text-muted-foreground">a simple workout timer</div>
             </div>
           </div>
           
@@ -57,14 +53,6 @@ const Workout = () => {
               title="Home"
             >
               <Home className="w-5 h-5" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              className="ripple"
-            >
-              {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </Button>
           </div>
         </div>

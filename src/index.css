@@ -57,41 +57,41 @@
   }
 
   .dark {
-    /* Dark mode - Cohesive palette with #252525 background and #3A3A3A cards */
-    --background: 0 0% 15%; /* #252525 - Dark background */
+    /* New color scheme */
+    --background: 0 0% 8%; /* #141414 - Main background */
     --foreground: 0 0% 95%; /* #F2F2F2 - Light text for contrast */
 
-    --card: 0 0% 23%; /* #3A3A3A - Card background */
+    --card: 0 0% 16%; /* #282828 - Card background */
     --card-foreground: 0 0% 95%; /* #F2F2F2 - Light text */
 
-    --popover: 0 0% 23%; /* #3A3A3A */
+    --popover: 0 0% 16%; /* #282828 */
     --popover-foreground: 0 0% 95%; /* #F2F2F2 */
 
-    --primary: 86 73% 96%; /* #F5FCEC - Accent color for buttons */
-    --primary-foreground: 0 0% 15%; /* #262626 */
+    --primary: 0 0% 23%; /* #3c3c3c - Primary color */
+    --primary-foreground: 0 0% 95%; /* #F2F2F2 */
 
-    --secondary: 0 0% 28%; /* Slightly lighter than card */
+    --secondary: 0 0% 23%; /* #3c3c3c - Secondary color */
     --secondary-foreground: 0 0% 85%; /* #D9D9D9 - Light text */
 
-    --muted: 0 0% 32%; /* Medium dark grey */
+    --muted: 0 0% 23%; /* #3c3c3c - Muted color */
     --muted-foreground: 0 0% 75%; /* #BFBFBF - Medium light text */
 
-    --accent: 86 73% 96%; /* #F5FCEC - Accent color */
-    --accent-foreground: 0 0% 15%; /* #262626 */
+    --accent: 0 0% 23%; /* #3c3c3c - Accent color */
+    --accent-foreground: 0 0% 95%; /* #F2F2F2 */
 
     --destructive: 0 100% 71%; /* #FF6B6B - Softer red */
     --destructive-foreground: 0 0% 95%; /* #F2F2F2 */
 
-    --border: 0 0% 30%; /* Dark grey border */
-    --input: 0 0% 28%; /* Medium dark grey input background */
-    --ring: 86 73% 96%; /* #F5FCEC */
+    --border: 0 0% 23%; /* #3c3c3c - Border color */
+    --input: 0 0% 16%; /* #282828 - Input background */
+    --ring: 0 0% 23%; /* #3c3c3c */
 
-    /* Modern elevation colors - dark */
-    --elevation-1: 0 0% 20%; /* Slightly lighter than background */
-    --elevation-2: 0 0% 25%; /* Medium elevation */
-    --elevation-3: 0 0% 30%; /* Higher elevation */
+    /* Modern elevation colors - using new color scheme */
+    --elevation-1: 0 0% 16%; /* #282828 - Slightly lighter than background */
+    --elevation-2: 0 0% 20%; /* #3c3c3c - Medium elevation */
+    --elevation-3: 0 0% 23%; /* #3c3c50 - Higher elevation */
 
-    /* Timer colors - restored original vibrant colors for dark mode */
+    /* Timer colors - preserved original vibrant colors */
     --timer-work: 77 80% 68%; /* #CFEA6E - Vibrant green for work periods */
     --timer-rest: 16 100% 66%; /* #FF7F50 - Coral for rest periods */
     --timer-complete: 218 79% 66%; /* #6495ED - CornflowerBlue for completion */
@@ -110,11 +110,32 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply text-foreground antialiased;
     font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-feature-settings: "cv11", "ss01";
     font-variation-settings: "opsz" 32;
     line-height: 1.6;
+  }
+
+  /* Simple colored background */
+  .gradient-background {
+    background: #141414;
+    background: linear-gradient(220deg,#141414,#3c3c3c,#494052);
+  }
+
+  /* Glassmorphism base styles */
+  .glass {
+    background: linear-gradient(135deg, rgba(60, 60, 60, 0.3), rgba(40, 40, 40, 0.2));
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  .glass-dark {
+    background: linear-gradient(135deg, rgba(40, 40, 40, 0.4), rgba(20, 20, 20, 0.3));
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
   }
 
   /* Material Design button ripple effect */
@@ -173,33 +194,22 @@
     box-shadow: 0 10px 15px -3px hsl(0 0% 0% / 0.1), 0 4px 6px -4px hsl(0 0% 0% / 0.1);
   }
 
-  /* Modern card styling */
+  /* Glassmorphism card styling */
   .card-modern {
-    @apply bg-card border border-border/20 rounded-xl shadow-sm hover:shadow-md transition-all duration-200;
+    @apply rounded-xl transition-all duration-200;
+    background: linear-gradient(135deg, rgba(60, 60, 60, 0.3), rgba(40, 40, 40, 0.2));
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
   }
 
-  /* Dark mode gradient cards */
-  .dark .card-modern {
-    background: linear-gradient(135deg, 
-      hsl(var(--card)) 0%, 
-      hsl(0 0% 28%) 50%, 
-      hsl(0 0% 26%) 100%
-    );
-    border: 1px solid hsl(0 0% 35%);
-    box-shadow: 
-      0 4px 6px -1px hsl(0 0% 0% / 0.3), 
-      0 2px 4px -2px hsl(0 0% 0% / 0.2),
-      inset 0 1px 0 hsl(0 0% 100% / 0.1);
+  .card-modern:hover {
+    background: linear-gradient(135deg, rgba(60, 60, 60, 0.4), rgba(40, 40, 40, 0.3));
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
   }
 
-  .dark .card-modern:hover {
-    box-shadow: 
-      0 10px 15px -3px hsl(0 0% 0% / 0.4), 
-      0 4px 6px -4px hsl(0 0% 0% / 0.3),
-      inset 0 1px 0 hsl(0 0% 100% / 0.15);
-  }
-
-  /* Figma-style mode selection cards */
+  /* Glassmorphism mode selection cards */
   .mode-card {
     display: flex;
     flex-direction: column;
@@ -210,68 +220,56 @@
     width: 360px;
     height: 221px;
     border-radius: 20px;
-    border: none;
-    box-shadow: none;
+    background: linear-gradient(135deg, rgba(60, 60, 60, 0.3), rgba(40, 40, 40, 0.2));
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .mode-card:hover {
+    background: linear-gradient(135deg, rgba(60, 60, 60, 0.4), rgba(40, 40, 40, 0.3));
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
   }
 
   .mode-card.intervals {
-    background: #F5FCEC;
+    background: linear-gradient(135deg, rgba(60, 60, 80, 0.3), rgba(40, 40, 60, 0.2));
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
   .mode-card.emom {
-    background: #D8FAF6;
+    background: linear-gradient(135deg, rgba(60, 60, 40, 0.3), rgba(40, 40, 20, 0.2));
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
-  /* Dark mode gradient for mode cards */
-  .dark .mode-card.intervals {
-    background: linear-gradient(135deg, 
-      hsl(0 0% 23%) 0%, 
-      hsl(0 0% 28%) 50%, 
-      hsl(0 0% 26%) 100%
-    );
-    border: 1px solid hsl(0 0% 35%);
-    box-shadow: 
-      0 4px 6px -1px hsl(0 0% 0% / 0.3), 
-      0 2px 4px -2px hsl(0 0% 0% / 0.2),
-      inset 0 1px 0 hsl(0 0% 100% / 0.1);
-  }
-
-  .dark .mode-card.emom {
-    background: linear-gradient(135deg, 
-      hsl(0 0% 23%) 0%, 
-      hsl(0 0% 28%) 50%, 
-      hsl(0 0% 26%) 100%
-    );
-    border: 1px solid hsl(0 0% 35%);
-    box-shadow: 
-      0 4px 6px -1px hsl(0 0% 0% / 0.3), 
-      0 2px 4px -2px hsl(0 0% 0% / 0.2),
-      inset 0 1px 0 hsl(0 0% 100% / 0.1);
-  }
-
-  /* Dark mode text colors for mode cards */
-  .dark .mode-card-title {
+  /* Glassmorphism text colors for mode cards */
+  .mode-card-title {
     color: #FFFFFF !important;
   }
 
-  .dark .mode-card-description {
+  .mode-card-description {
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
+
+  .mode-card-button-text {
     color: #FFFFFF !important;
   }
 
-  .dark .mode-card-button-text {
+  .mode-card-button {
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    background: rgba(60, 60, 60, 0.2) !important;
+    backdrop-filter: blur(10px);
+  }
+
+  .mode-card-button:hover {
+    background: rgba(60, 60, 60, 0.3) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+  }
+
+  .mode-card-button:hover .mode-card-button-text {
     color: #FFFFFF !important;
-  }
-
-  .dark .mode-card-button {
-    border-color: #FFFFFF !important;
-  }
-
-  .dark .mode-card-button:hover {
-    background: #FFFFFF !important;
-  }
-
-  .dark .mode-card-button:hover .mode-card-button-text {
-    color: #000000 !important;
   }
 
   .mode-card-body {
