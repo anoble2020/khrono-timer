@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Settings, Home, Timer, Zap } from 'lucide-react';
+import { Settings, Home, Timer, Zap, Play, Pause, RotateCcw, Clock, Layers } from 'lucide-react';
 import logo from '/src/assets/logo.png';
 import { TabataTimer } from '@/components/TabataTimer';
 
@@ -276,34 +276,49 @@ const Index = () => {
               {currentMode.toUpperCase()} WORKOUT
             </h3>
                   <div className="flex justify-center space-x-8 text-muted-foreground">
-                    {currentMode === 'intervals' && (
-                      <>
-                        <div className="flex flex-col items-center">
-                          <span className="text-sm font-medium">Work</span>
-                          <span className="text-lg font-bold text-foreground">{timerConfig.workTime}s</span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                          <span className="text-sm font-medium">Rest</span>
-                          <span className="text-lg font-bold text-foreground">{timerConfig.restTime}s</span>
-                        </div>
-                      </>
-                    )}
-                    {currentMode === 'emom' && (
-                      <div className="flex flex-col items-center">
-                        <span className="text-sm font-medium">Duration</span>
-                        <span className="text-lg font-bold text-foreground">{timerConfig.rounds} min</span>
-                      </div>
-                    )}
-                    <div className="flex flex-col items-center">
-                      <span className="text-sm font-medium">Rounds</span>
-                      <span className="text-lg font-bold text-foreground">{timerConfig.rounds}</span>
-                    </div>
-                    {timerConfig.sets > 1 && (
-                      <div className="flex flex-col items-center">
-                        <span className="text-sm font-medium">Sets</span>
-                        <span className="text-lg font-bold text-foreground">{timerConfig.sets}</span>
-                      </div>
-                    )}
+                     {currentMode === 'intervals' && (
+                       <>
+                         <div className="flex flex-col items-center">
+                           <div className="flex items-center space-x-1 mb-1">
+                             <Play className="w-4 h-4" />
+                             <span className="text-sm font-medium">Work</span>
+                           </div>
+                           <span className="text-lg font-bold text-foreground">{timerConfig.workTime}s</span>
+                         </div>
+                         <div className="flex flex-col items-center">
+                           <div className="flex items-center space-x-1 mb-1">
+                             <Pause className="w-4 h-4" />
+                             <span className="text-sm font-medium">Rest</span>
+                           </div>
+                           <span className="text-lg font-bold text-foreground">{timerConfig.restTime}s</span>
+                         </div>
+                       </>
+                     )}
+                     {currentMode === 'emom' && (
+                       <div className="flex flex-col items-center">
+                         <div className="flex items-center space-x-1 mb-1">
+                           <Clock className="w-4 h-4" />
+                           <span className="text-sm font-medium">Duration</span>
+                         </div>
+                         <span className="text-lg font-bold text-foreground">{timerConfig.rounds} min</span>
+                       </div>
+                     )}
+                     <div className="flex flex-col items-center">
+                       <div className="flex items-center space-x-1 mb-1">
+                         <RotateCcw className="w-4 h-4" />
+                         <span className="text-sm font-medium">Rounds</span>
+                       </div>
+                       <span className="text-lg font-bold text-foreground">{timerConfig.rounds}</span>
+                     </div>
+                     {timerConfig.sets > 1 && (
+                       <div className="flex flex-col items-center">
+                         <div className="flex items-center space-x-1 mb-1">
+                           <Layers className="w-4 h-4" />
+                           <span className="text-sm font-medium">Sets</span>
+                         </div>
+                         <span className="text-lg font-bold text-foreground">{timerConfig.sets}</span>
+                       </div>
+                     )}
             </div>
                 </div>
                 
