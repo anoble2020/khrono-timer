@@ -198,6 +198,37 @@
     animation: timer-pulse 1s ease-in-out infinite;
   }
 
+  /* Modal animations */
+  @keyframes fade-out {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
+
+  @keyframes scale-out {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+  }
+
+  .animate-fade-out {
+    animation: fade-out 0.3s ease-out forwards;
+  }
+
+  .animate-scale-out {
+    animation: scale-out 0.2s ease-out forwards;
+  }
+
   /* Modern elevation utilities */
   .elevation-1 {
     background: hsl(var(--elevation-1));

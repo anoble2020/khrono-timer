@@ -17,6 +17,7 @@ export interface TimerConfig {
 
 const Index = () => {
   const [showSettings, setShowSettings] = useState(false);
+  const [settingsClosing, setSettingsClosing] = useState(false);
   const [currentMode, setCurrentMode] = useState<TimerMode | null>(null);
   
   const defaultConfigs: Record<TimerMode, TimerConfig> = {
@@ -36,6 +37,15 @@ const Index = () => {
   const handleBackToModeSelection = () => {
     setCurrentMode(null);
     setShowSettings(false);
+    setSettingsClosing(false);
+  };
+
+  const handleCloseSettings = () => {
+    setSettingsClosing(true);
+    setTimeout(() => {
+      setShowSettings(false);
+      setSettingsClosing(false);
+    }, 300); // Match fade-out animation duration
   };
 
   const modes = [
@@ -84,7 +94,7 @@ const Index = () => {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => setShowSettings(!showSettings)}
+              onClick={() => showSettings ? handleCloseSettings() : setShowSettings(true)}
               className="ripple"
             >
               <Settings className="w-5 h-5" />
@@ -148,15 +158,15 @@ const Index = () => {
           {/* Settings Modal */}
           {showSettings && (
             <div 
-              className="fixed inset-0 z-50 flex items-center justify-center animate-fade-in"
-              onClick={() => setShowSettings(false)}
+              className={`fixed inset-0 z-50 flex items-center justify-center ${settingsClosing ? 'animate-fade-out' : 'animate-fade-in'}`}
+              onClick={handleCloseSettings}
             >
               {/* Backdrop with blur */}
               <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
               
               {/* Modal Content */}
               <div 
-                className="relative w-full max-w-md mx-4 animate-scale-in"
+                className={`relative w-full max-w-md mx-4 ${settingsClosing ? 'animate-scale-out' : 'animate-scale-in'}`}
                 onClick={(e) => e.stopPropagation()}
               >
                 <Card className="glass-dark p-6 space-y-6">
