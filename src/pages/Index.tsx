@@ -145,101 +145,86 @@ const Index = () => {
             />
           </div>
           
-          {/* Settings Panel */}
+          {/* Settings Modal */}
           {showSettings && (
-            <div className="lg:w-80 animate-slide-up">
-                  <Card className="card-modern p-6 space-y-6">
-                    <div>
-                      <h3 className="text-xl font-bold text-foreground mb-2">Timer Settings</h3>
-                      <p className="text-sm text-muted-foreground font-medium">
-                        Customize your {currentMode.toUpperCase()} workout
-                      </p>
-                    </div>
-                    
-                    <div className="space-y-4">
-                      {currentMode === 'intervals' && (
-                        <>
-                          <div className="space-y-2">
-                            <label className="text-sm font-medium text-foreground">Work Time</label>
-                            <div className="flex items-center space-x-3">
-                              <Button
-                                variant="outline"
-                                size="icon"
-                                onClick={() => setTimerConfig(prev => ({ ...prev, workTime: Math.max(5, prev.workTime - 5) }))}
-                                className="btn-modern h-10 w-10 rounded-xl"
-                              >
-                                -
-                              </Button>
-                              <div className="flex-1 text-center font-mono text-lg font-bold bg-card rounded-xl py-2 text-foreground">
-                                {timerConfig.workTime}s
-                              </div>
-                              <Button
-                                variant="outline"
-                                size="icon"
-                                onClick={() => setTimerConfig(prev => ({ ...prev, workTime: Math.min(300, prev.workTime + 5) }))}
-                                className="btn-modern h-10 w-10 rounded-xl"
-                              >
-                                +
-                              </Button>
-                            </div>
-                          </div>
-                          
-                          <div className="space-y-2">
-                            <label className="text-sm font-medium text-foreground">Rest Time</label>
-                            <div className="flex items-center space-x-3">
-                              <Button
-                                variant="outline"
-                                size="icon"
-                                onClick={() => setTimerConfig(prev => ({ ...prev, restTime: Math.max(5, prev.restTime - 5) }))}
-                                className="btn-modern h-10 w-10 rounded-xl"
-                              >
-                                -
-                              </Button>
-                              <div className="flex-1 text-center font-mono text-lg font-bold bg-card rounded-xl py-2 text-foreground">
-                                {timerConfig.restTime}s
-                              </div>
-                              <Button
-                                variant="outline"
-                                size="icon"
-                                onClick={() => setTimerConfig(prev => ({ ...prev, restTime: Math.min(300, prev.restTime + 5) }))}
-                                className="btn-modern h-10 w-10 rounded-xl"
-                              >
-                                +
-                              </Button>
-                            </div>
-                          </div>
-                        </>
-                      )}
-                      
-                      {currentMode === 'emom' && (
+            <div 
+              className="fixed inset-0 z-50 flex items-center justify-center animate-fade-in"
+              onClick={() => setShowSettings(false)}
+            >
+              {/* Backdrop with blur */}
+              <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+              
+              {/* Modal Content */}
+              <div 
+                className="relative w-full max-w-md mx-4 animate-scale-in"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Card className="glass-dark p-6 space-y-6">
+                  <div>
+                    <h3 className="text-xl font-bold text-foreground mb-2">Timer Settings</h3>
+                    <p className="text-sm text-muted-foreground font-medium">
+                      Customize your {currentMode.toUpperCase()} workout
+                    </p>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    {currentMode === 'intervals' && (
+                      <>
                         <div className="space-y-2">
-                          <label className="text-sm font-medium text-foreground">Duration (minutes)</label>
+                          <label className="text-sm font-medium text-foreground">Work Time</label>
                           <div className="flex items-center space-x-3">
                             <Button
                               variant="outline"
                               size="icon"
-                              onClick={() => setTimerConfig(prev => ({ ...prev, rounds: Math.max(1, prev.rounds - 1) }))}
+                              onClick={() => setTimerConfig(prev => ({ ...prev, workTime: Math.max(5, prev.workTime - 5) }))}
                               className="btn-modern h-10 w-10 rounded-xl"
                             >
                               -
                             </Button>
                             <div className="flex-1 text-center font-mono text-lg font-bold bg-card rounded-xl py-2 text-foreground">
-                              {timerConfig.rounds} min
+                              {timerConfig.workTime}s
                             </div>
                             <Button
                               variant="outline"
                               size="icon"
-                              onClick={() => setTimerConfig(prev => ({ ...prev, rounds: Math.min(60, prev.rounds + 1) }))}
+                              onClick={() => setTimerConfig(prev => ({ ...prev, workTime: Math.min(300, prev.workTime + 5) }))}
                               className="btn-modern h-10 w-10 rounded-xl"
                             >
                               +
                             </Button>
                           </div>
                         </div>
-                      )}
-                      
+                        
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-foreground">Rest Time</label>
+                          <div className="flex items-center space-x-3">
+                            <Button
+                              variant="outline"
+                              size="icon"
+                              onClick={() => setTimerConfig(prev => ({ ...prev, restTime: Math.max(5, prev.restTime - 5) }))}
+                              className="btn-modern h-10 w-10 rounded-xl"
+                            >
+                              -
+                            </Button>
+                            <div className="flex-1 text-center font-mono text-lg font-bold bg-card rounded-xl py-2 text-foreground">
+                              {timerConfig.restTime}s
+                            </div>
+                            <Button
+                              variant="outline"
+                              size="icon"
+                              onClick={() => setTimerConfig(prev => ({ ...prev, restTime: Math.min(300, prev.restTime + 5) }))}
+                              className="btn-modern h-10 w-10 rounded-xl"
+                            >
+                              +
+                            </Button>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                    
+                    {currentMode === 'emom' && (
                       <div className="space-y-2">
-                        <label className="text-sm font-medium text-foreground">Rounds</label>
+                        <label className="text-sm font-medium text-foreground">Duration (minutes)</label>
                         <div className="flex items-center space-x-3">
                           <Button
                             variant="outline"
@@ -250,20 +235,47 @@ const Index = () => {
                             -
                           </Button>
                           <div className="flex-1 text-center font-mono text-lg font-bold bg-card rounded-xl py-2 text-foreground">
-                            {timerConfig.rounds}
+                            {timerConfig.rounds} min
                           </div>
                           <Button
                             variant="outline"
                             size="icon"
-                            onClick={() => setTimerConfig(prev => ({ ...prev, rounds: Math.min(50, prev.rounds + 1) }))}
+                            onClick={() => setTimerConfig(prev => ({ ...prev, rounds: Math.min(60, prev.rounds + 1) }))}
                             className="btn-modern h-10 w-10 rounded-xl"
                           >
                             +
                           </Button>
                         </div>
                       </div>
+                    )}
+                    
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-foreground">Rounds</label>
+                      <div className="flex items-center space-x-3">
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          onClick={() => setTimerConfig(prev => ({ ...prev, rounds: Math.max(1, prev.rounds - 1) }))}
+                          className="btn-modern h-10 w-10 rounded-xl"
+                        >
+                          -
+                        </Button>
+                        <div className="flex-1 text-center font-mono text-lg font-bold bg-card rounded-xl py-2 text-foreground">
+                          {timerConfig.rounds}
+                        </div>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          onClick={() => setTimerConfig(prev => ({ ...prev, rounds: Math.min(50, prev.rounds + 1) }))}
+                          className="btn-modern h-10 w-10 rounded-xl"
+                        >
+                          +
+                        </Button>
+                      </div>
                     </div>
-                  </Card>
+                  </div>
+                </Card>
+              </div>
             </div>
           )}
         </div>
