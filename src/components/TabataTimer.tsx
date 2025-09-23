@@ -189,7 +189,7 @@ export const TabataTimer: React.FC<TabataTimerProps> = ({ config, mode }) => {
   };
 
   return (
-    <Card className="elevation-3 border-0 p-8 space-y-8 bg-card/80 backdrop-blur-sm">
+    <Card className="glass-dark p-8 space-y-8 rounded-[20px]">
       <ProgressIndicator 
         progress={getProgress()}
         timerState={timerState}
