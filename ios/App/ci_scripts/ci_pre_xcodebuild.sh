@@ -44,6 +44,10 @@ echo "🧹 Cleaning existing Pods..."
 rm -rf Pods/ || echo "No Pods directory to clean"
 rm -rf Podfile.lock || echo "No Podfile.lock to clean"
 
+# Force clean to ensure fresh install
+echo "🧹 Force cleaning CocoaPods cache..."
+pod cache clean --all || echo "Cache clean failed, continuing..."
+
 # Update CocoaPods repo
 echo "🔄 Updating CocoaPods repo..."
 pod repo update
