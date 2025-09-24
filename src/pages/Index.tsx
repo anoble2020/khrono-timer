@@ -67,44 +67,10 @@ const Index = () => {
 
   return (
     <div className="min-h-screen gradient-background transition-colors duration-300">
-      {/* Header */}
-      <header className="glass-dark sticky top-0 z-50 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <img src={logo} alt="khrono timer" className="w-8 h-8" />
-            <div className="flex flex-col">
-            <h1 className="text-xl font-bold text-foreground">khrono</h1>
-            <div className="text-xs text-muted-foreground">a simple workout timer</div>
-            </div>
-          </div>
-          
-          <div className="flex items-center space-x-2">
-            {currentMode && (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={handleBackToModeSelection}
-                className="ripple"
-                title="Home"
-              >
-                <Home className="w-5 h-5" />
-              </Button>
-            )}
-            {currentMode && (
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => showSettings ? handleCloseSettings() : setShowSettings(true)}
-              className="ripple"
-            >
-              <Settings className="w-5 h-5" />
-            </Button>
-            )}
-          </div>
-        </div>
-      </header>
+      {/* Safe area padding for iPhone notch */}
+      <div className="pt-safe-top">
 
-      <main className="container mx-auto px-4 py-6 space-y-6">
+      <main className="container mx-auto px-4 py-6 space-y-6 mb-20">
         {!currentMode ? (
           /* Mode Selection */
           <div className="max-w-2xl mx-auto">
@@ -349,6 +315,35 @@ const Index = () => {
           </>
         )}
       </main>
+
+      {/* Bottom Navigation */}
+      <nav className="fixed bottom-0 left-0 right-0 glass-dark backdrop-blur-sm border-t border-white/20 pb-safe-bottom">
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex items-center justify-center space-x-8">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleBackToModeSelection}
+              className="ripple w-12 h-12 rounded-full"
+              title="Home"
+            >
+              <img src={logo} alt="khrono timer" className="w-8 h-8" />
+            </Button>
+            {currentMode && (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setShowSettings(!showSettings)}
+                className="ripple w-12 h-12 rounded-full"
+                title="Settings"
+              >
+                <Settings className="w-6 h-6" />
+              </Button>
+            )}
+          </div>
+        </div>
+      </nav>
+      </div>
     </div>
   );
 };

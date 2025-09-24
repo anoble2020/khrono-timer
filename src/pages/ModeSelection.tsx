@@ -1,6 +1,4 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Timer, Zap } from 'lucide-react';
 import logo from '/src/assets/logo.png';
@@ -35,24 +33,10 @@ const ModeSelection = () => {
 
   return (
     <div className="min-h-screen gradient-background transition-colors duration-300">
-      {/* Header */}
-      <header className="glass-dark sticky top-0 z-50 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <img src={logo} alt="khrono timer" className="w-8 h-8" />
-            <div className="flex flex-col">
-              <h1 className="text-xl font-bold text-foreground">ugoku</h1>
-              <div className="text-xs text-muted-foreground">a simple workout timer</div>
-            </div>
-          </div>
-          
-          <div className="flex items-center space-x-2">
-            {/* Theme toggle removed - defaulting to dark mode */}
-          </div>
-        </div>
-      </header>
+      {/* Safe area padding for iPhone notch */}
+      <div className="pt-safe-top">
 
-      <main className="container mx-auto px-4 py-6">
+      <main className="container mx-auto px-4 py-6 mb-20">
         <div className="max-w-2xl mx-auto">
           {/* Welcome Section */}
           <div className="text-center mb-8">
@@ -69,8 +53,12 @@ const ModeSelection = () => {
               return (
                 <div
                   key={mode.id}
-                  className={`flex flex-col justify-center items-center p-0 relative w-full h-56 ${cardBg} rounded-[20px] cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-lg shadow-md`}
+                  className={`flex flex-col justify-center items-center p-0 relative w-full h-56 ${cardBg} rounded-[20px] cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-lg shadow-md effect-shine`}
                   onClick={() => handleModeSelect(mode.id)}
+                  style={{
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}
                 >
                   {/* Main Content */}
                   <div className="flex flex-col items-center justify-center text-center px-8 mb-8">
@@ -95,6 +83,23 @@ const ModeSelection = () => {
           </div>
         </div>
       </main>
+
+      {/* Bottom Navigation */}
+      <nav className="fixed bottom-0 left-0 right-0 glass-dark backdrop-blur-sm border-t border-white/20 pb-safe-bottom">
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex items-center justify-center space-x-8">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="ripple w-12 h-12 rounded-full"
+              title="Home"
+            >
+              <img src={logo} alt="khrono timer" className="w-8 h-8" />
+            </Button>
+          </div>
+        </div>
+      </nav>
+      </div>
     </div>
   );
 };

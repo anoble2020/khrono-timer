@@ -59,7 +59,7 @@ export const TimerDisplay: React.FC<TimerDisplayProps> = ({
   return (
     <div className="text-center space-y-6">
       {/* Timer State */}
-      <div className={`inline-flex px-6 py-2 rounded-full text-white font-bold tracking-wider ${getStateColor()}`}>
+      <div className={`inline-flex px-6 py-2 rounded-full font-bold tracking-wider ${getStateColor()}`}>
         {getStateText()}
       </div>
 
