@@ -12,15 +12,37 @@ echo "📁 Current directory: $(pwd)"
 echo "📁 Directory contents:"
 ls -la
 
-# Navigate to the parent directory where Podfile should be
-# Script runs from ci_scripts/ so we need to go up one level
-cd ..
+# Navigate to the repository root
+# Script runs from ci_scripts/ so we need to go up to repo root
+cd ../../..
 
-echo "📁 After cd .., current directory: $(pwd)"
-echo "📁 Directory contents after cd ..:"
+echo "📁 After navigating to repo root, current directory: $(pwd)"
+echo "📁 Directory contents:"
 ls -la
 
-# Check if we're in the right location
+# Check if package.json exists (indicates we're in the right place)
+if [ ! -f "package.json" ]; then
+    echo "❌ package.json not found, not in repository root"
+    exit 1
+fi
+
+echo "✅ Found package.json, in repository root"
+
+# Build the web app
+echo "🏗️ Building web app..."
+npm run build
+
+# Copy web assets to iOS
+echo "📱 Copying web assets to iOS..."
+npx cap copy ios
+
+# Navigate to iOS App directory
+cd ios/App
+echo "📁 Now in iOS App directory: $(pwd)"
+echo "📁 Directory contents:"
+ls -la
+
+# Check if Podfile exists
 if [ ! -f "Podfile" ]; then
     echo "❌ Podfile not found in current directory"
     echo "🔍 Looking for Podfile in parent directories..."
