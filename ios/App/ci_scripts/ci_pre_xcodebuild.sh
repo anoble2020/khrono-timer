@@ -52,4 +52,10 @@ pod repo update
 echo "📦 Installing CocoaPods dependencies..."
 pod install
 
+# If the build fails, try with verbose output
+if [ $? -ne 0 ]; then
+    echo "❌ Pod install failed, trying with verbose output..."
+    pod install --verbose
+fi
+
 echo "✅ CocoaPods setup complete!"

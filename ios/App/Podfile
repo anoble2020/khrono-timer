@@ -13,7 +13,8 @@ def capacitor_pods
   # Use published versions instead of local paths for Xcode Cloud compatibility
   pod 'Capacitor', '~> 7.4'
   pod 'CapacitorCordova', '~> 7.4'
-  pod 'CapacitorCommunityNativeAudio', '~> 7.0'
+  # Temporarily remove native audio pod to test build
+  # pod 'CapacitorCommunityNativeAudio', '7.0.1'
 end
 
 target 'App' do
