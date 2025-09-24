@@ -44,8 +44,12 @@ echo "🧹 Cleaning existing Pods..."
 rm -rf Pods/ || echo "No Pods directory to clean"
 rm -rf Podfile.lock || echo "No Podfile.lock to clean"
 
+# Update CocoaPods repo
+echo "🔄 Updating CocoaPods repo..."
+pod repo update
+
 # Install pods
 echo "📦 Installing CocoaPods dependencies..."
-pod install --repo-update
+pod install
 
 echo "✅ CocoaPods setup complete!"

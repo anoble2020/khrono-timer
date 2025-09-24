@@ -1,5 +1,3 @@
-require_relative '../../node_modules/@capacitor/ios/scripts/pods_helpers'
-
 platform :ios, '14.0'
 use_frameworks!
 
@@ -12,9 +10,10 @@ install! 'cocoapods', :disable_input_output_paths => true
 install! 'cocoapods', :integrate_targets => false
 
 def capacitor_pods
-  pod 'Capacitor', :path => '../../node_modules/@capacitor/ios'
-  pod 'CapacitorCordova', :path => '../../node_modules/@capacitor/ios'
-  pod 'CapacitorCommunityNativeAudio', :path => '../../node_modules/@capacitor-community/native-audio'
+  # Use published versions instead of local paths for Xcode Cloud compatibility
+  pod 'Capacitor', '~> 7.4'
+  pod 'CapacitorCordova', '~> 7.4'
+  pod 'CapacitorCommunityNativeAudio', '~> 7.0'
 end
 
 target 'App' do
