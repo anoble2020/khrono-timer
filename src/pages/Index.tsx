@@ -119,15 +119,16 @@ const Index = () => {
 
   return (
     <div 
-      className="min-h-screen gradient-background transition-colors duration-300"
+      className="min-h-screen h-screen overflow-hidden gradient-background transition-colors duration-300"
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
+      style={{ overscrollBehavior: 'none' }}
     >
       {/* Safe area padding for iPhone notch */}
       <div className="pt-safe-top">
 
-      <main className="container mx-auto px-4 py-6 space-y-6 mb-20">
+      <main className="container mx-auto px-4 py-6 space-y-6 h-full overflow-hidden">
         {!currentMode ? (
           /* Mode Selection */
           <div className="max-w-2xl mx-auto">
@@ -181,11 +182,11 @@ const Index = () => {
           {/* Settings Modal */}
           {showSettings && (
             <div 
-              className={`fixed inset-0 z-50 flex items-center justify-center ${settingsClosing ? 'animate-fade-out' : 'animate-fade-in'}`}
+              className="fixed inset-0 z-50 flex items-center justify-center"
               onClick={handleCloseSettings}
             >
-              {/* Backdrop with blur */}
-              <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+              {/* Backdrop with blur - appears immediately */}
+              <div className={`absolute inset-0 bg-black/50 backdrop-blur-sm ${settingsClosing ? 'animate-fade-out' : 'animate-fade-in'}`} />
               
               {/* Modal Content */}
               <div 

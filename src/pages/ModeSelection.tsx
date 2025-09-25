@@ -31,11 +31,14 @@ const ModeSelection = () => {
   };
 
   return (
-    <div className="min-h-screen gradient-background transition-colors duration-300">
+    <div 
+      className="min-h-screen h-screen overflow-hidden gradient-background transition-colors duration-300"
+      style={{ overscrollBehavior: 'none' }}
+    >
       {/* Safe area padding for iPhone notch */}
       <div className="pt-safe-top">
 
-      <main className="container mx-auto px-4 py-6 mb-20">
+      <main className="container mx-auto px-4 py-6 h-full overflow-hidden">
         <div className="max-w-2xl mx-auto">
           {/* Welcome Section */}
           <div className="text-center mb-8">

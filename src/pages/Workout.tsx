@@ -31,11 +31,14 @@ const Workout = () => {
   };
 
   return (
-    <div className="min-h-screen gradient-background transition-colors duration-300">
+    <div 
+      className="min-h-screen h-screen overflow-hidden gradient-background transition-colors duration-300"
+      style={{ overscrollBehavior: 'none' }}
+    >
       {/* Safe area padding for iPhone notch */}
       <div className="pt-safe-top">
 
-      <main className="container mx-auto px-4 py-6 space-y-6 mb-20">
+      <main className="container mx-auto px-4 py-6 space-y-6 h-full overflow-hidden">
         {/* Main Timer */}
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="flex-1">
