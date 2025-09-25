@@ -48,7 +48,7 @@ const ModeSelection = () => {
           </div>
 
           {/* Mode Selection */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fade-in">
+          <div className="flex flex-col md:flex-row gap-6 md:gap-8 lg:gap-12 justify-center items-center animate-fade-in md:px-6">
             {modes.map((mode) => {
               const cardBg = mode.id === 'intervals' ? 'bg-card-intervals' : 'bg-card-emom';
               

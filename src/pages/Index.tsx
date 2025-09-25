@@ -139,7 +139,7 @@ const Index = () => {
             </div>
 
             <div className="animate-fade-in">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 justify-items-center">
+              <div className="flex flex-col md:flex-row gap-6 md:gap-8 lg:gap-12 justify-center items-center md:px-6">
                 {modes.map((mode) => {
                   const descriptions = {
                     intervals: "Intervals of work and rest, such as Tabata or timed workouts",
