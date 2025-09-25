@@ -3,8 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { TabataTimer } from '@/components/TabataTimer';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Settings, Home } from 'lucide-react';
-import logo from '/src/assets/logo.png';
+import { Settings } from 'lucide-react';
 import { TimerMode, TimerConfig } from './Index';
 
 const Workout = () => {
@@ -191,35 +190,20 @@ const Workout = () => {
               </div>
             </div>
             
-          </div>
-        </Card>
-      </main>
-
-      {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 glass-dark backdrop-blur-sm border-t border-white/20 pb-safe-bottom">
-        <div className="container mx-auto px-4 py-3">
-          <div className="flex items-center justify-center space-x-8">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => navigate('/')}
-              className="ripple w-12 h-12 rounded-full"
-              title="Home"
-            >
-              <img src={logo} alt="khrono timer" className="w-8 h-8" />
-            </Button>
+            {/* Settings Button */}
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setShowSettings(!showSettings)}
-              className="ripple w-12 h-12 rounded-full"
+              className="ripple w-10 h-10 rounded-full"
               title="Settings"
             >
-              <Settings className="w-6 h-6" />
+              <Settings className="w-5 h-5" />
             </Button>
           </div>
-        </div>
-      </nav>
+        </Card>
+      </main>
+
       </div>
     </div>
   );

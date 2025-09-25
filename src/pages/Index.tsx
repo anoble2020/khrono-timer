@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Settings, Home, Timer, Zap, Play, Pause, RotateCcw, Clock, Layers } from 'lucide-react';
-import logo from '/src/assets/logo.png';
+import { Settings, Timer, Zap, Play, Pause, RotateCcw, Clock, Layers } from 'lucide-react';
 import { TabataTimer } from '@/components/TabataTimer';
 
 export type TimerMode = 'intervals' | 'emom';
@@ -19,6 +18,9 @@ const Index = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [settingsClosing, setSettingsClosing] = useState(false);
   const [currentMode, setCurrentMode] = useState<TimerMode | null>(null);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [wakeLock, setWakeLock] = useState<WakeLockSentinel | null>(null);
   
   const defaultConfigs: Record<TimerMode, TimerConfig> = {
     intervals: { workTime: 20, restTime: 10, rounds: 8, sets: 1, setRest: 60 },
@@ -28,6 +30,32 @@ const Index = () => {
   const [timerConfig, setTimerConfig] = useState<TimerConfig>(defaultConfigs.intervals);
 
   // Theme toggle removed - defaulting to dark mode
+
+  // Wake lock to prevent device from sleeping
+  useEffect(() => {
+    const requestWakeLock = async () => {
+      try {
+        if ('wakeLock' in navigator) {
+          const wakeLockSentinel = await navigator.wakeLock.request('screen');
+          setWakeLock(wakeLockSentinel);
+          
+          wakeLockSentinel.addEventListener('release', () => {
+            setWakeLock(null);
+          });
+        }
+      } catch (err) {
+        console.log('Wake lock request failed:', err);
+      }
+    };
+
+    requestWakeLock();
+
+    return () => {
+      if (wakeLock) {
+        wakeLock.release();
+      }
+    };
+  }, [wakeLock]);
 
   const handleModeChange = (mode: TimerMode) => {
     setCurrentMode(mode);
@@ -48,6 +76,30 @@ const Index = () => {
     }, 300); // Match fade-out animation duration
   };
 
+  // Swipe navigation handlers
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchEnd - touchStart;
+    const isRightSwipe = distance > minSwipeDistance;
+    
+    // If swiping right (left to right) and we're in workout mode, go back to mode selection
+    if (isRightSwipe && currentMode) {
+      handleBackToModeSelection();
+    }
+  };
+
   const modes = [
     {
       id: 'intervals' as TimerMode,
@@ -66,7 +118,12 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen gradient-background transition-colors duration-300">
+    <div 
+      className="min-h-screen gradient-background transition-colors duration-300"
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
+    >
       {/* Safe area padding for iPhone notch */}
       <div className="pt-safe-top">
 
@@ -310,39 +367,22 @@ const Index = () => {
             </div>
                 </div>
                 
+                {/* Settings Button */}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setShowSettings(!showSettings)}
+                  className="ripple w-10 h-10 rounded-full"
+                  title="Settings"
+                >
+                  <Settings className="w-5 h-5" />
+                </Button>
           </div>
         </Card>
           </>
         )}
       </main>
 
-      {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 glass-dark backdrop-blur-sm border-t border-white/20 pb-safe-bottom">
-        <div className="container mx-auto px-4 py-3">
-          <div className="flex items-center justify-center space-x-8">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={handleBackToModeSelection}
-              className="ripple w-12 h-12 rounded-full"
-              title="Home"
-            >
-              <img src={logo} alt="khrono timer" className="w-8 h-8" />
-            </Button>
-            {currentMode && (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setShowSettings(!showSettings)}
-                className="ripple w-12 h-12 rounded-full"
-                title="Settings"
-              >
-                <Settings className="w-6 h-6" />
-              </Button>
-            )}
-          </div>
-        </div>
-      </nav>
       </div>
     </div>
   );

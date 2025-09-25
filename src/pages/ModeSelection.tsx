@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Timer, Zap } from 'lucide-react';
-import logo from '/src/assets/logo.png';
 
 export type TimerMode = 'intervals' | 'emom';
 
@@ -84,21 +83,6 @@ const ModeSelection = () => {
         </div>
       </main>
 
-      {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 glass-dark backdrop-blur-sm border-t border-white/20 pb-safe-bottom">
-        <div className="container mx-auto px-4 py-3">
-          <div className="flex items-center justify-center space-x-8">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="ripple w-12 h-12 rounded-full"
-              title="Home"
-            >
-              <img src={logo} alt="khrono timer" className="w-8 h-8" />
-            </Button>
-          </div>
-        </div>
-      </nav>
       </div>
     </div>
   );
