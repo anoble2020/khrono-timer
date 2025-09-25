@@ -28,6 +28,26 @@ fi
 
 echo "✅ Found package.json, in repository root"
 
+# Check if Node.js is installed
+if ! command -v node &> /dev/null; then
+    echo "📦 Installing Node.js..."
+    # Install Node.js using Homebrew (available in Xcode Cloud)
+    brew install node
+fi
+
+# Check if npm is available
+if ! command -v npm &> /dev/null; then
+    echo "❌ npm not found after Node.js installation"
+    exit 1
+fi
+
+echo "📦 Node.js version: $(node --version)"
+echo "📦 npm version: $(npm --version)"
+
+# Install dependencies
+echo "📦 Installing npm dependencies..."
+npm install
+
 # Build the web app
 echo "🏗️ Building web app..."
 npm run build
