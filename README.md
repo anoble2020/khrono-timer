@@ -1,73 +1,128 @@
-# Welcome to your Lovable project
+# khrono - a workout timer app
 
-## Project info
+A modern, mobile-first workout timer application built with React and TypeScript. Perfect for Tabata intervals, EMOM (Every Minute On the Minute) workouts, and other high-intensity interval training.
 
-**URL**: https://lovable.dev/projects/b5a8a38d-1eda-45b3-9832-93e90fb9fb41
+## Features
 
-## How can I edit this code?
+- **Two Workout Modes**:
+  - **Intervals**: Customizable work/rest periods (perfect for Tabata)
+  - **EMOM**: Every minute on the minute workouts
+- **Intuitive Navigation**: Swipe right to navigate back to mode selection
+- **Settings Panel**: Adjustable timer configurations
+- **Wake Lock**: Prevents device from sleeping during workouts
+- **Mobile Optimized**: Designed for iOS and Android with safe area support
+- **Dark Theme**: Clean, focused interface for workout sessions
 
-There are several ways of editing your application.
+## Getting Started
 
-**Use Lovable**
+### Prerequisites
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/b5a8a38d-1eda-45b3-9832-93e90fb9fb41) and start prompting.
+- Node.js (v16 or higher)
+- npm or yarn
 
-Changes made via Lovable will be committed automatically to this repo.
+### Fork the repo and customize it yourself!
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
+1. Clone the repository:
+```bash
 git clone <YOUR_GIT_URL>
+cd khrono-timer
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+2. Install dependencies:
+```bash
+npm install
+```
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+3. Start the development server:
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+4. Open your browser and navigate to `http://localhost:5173`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Building for Production
 
-**Use GitHub Codespaces**
+### Web
+```bash
+npm run build
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### iOS (Capacitor)
+```bash
+npm run build
+npx cap sync ios
+npx cap open ios
+```
 
-## What technologies are used for this project?
+### Android (Capacitor)
+```bash
+npm run build
+npx cap sync android
+npx cap open android
+```
 
-This project is built with:
+## Technology Stack
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- **Frontend**: React 18 with TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui
+- **Mobile**: Capacitor for iOS/Android deployment
+- **Icons**: Lucide React
+- **State Management**: React Hooks
 
-## How can I deploy this project?
+## Project Structure
 
-Simply open [Lovable](https://lovable.dev/projects/b5a8a38d-1eda-45b3-9832-93e90fb9fb41) and click on Share -> Publish.
+```
+src/
+├── components/          # Reusable UI components
+│   ├── ui/             # shadcn/ui components
+│   ├── TabataTimer.tsx # Main timer component
+│   └── ...
+├── pages/              # Application pages
+│   ├── Index.tsx       # Main app page (mode selection + workout)
+│   ├── Workout.tsx     # Workout page (if using routing)
+│   └── ModeSelection.tsx # Mode selection page
+├── hooks/              # Custom React hooks
+├── lib/                # Utility functions
+└── assets/             # Static assets
+```
 
-## Can I connect a custom domain to my Lovable project?
+## Usage
 
-Yes, you can!
+1. **Select Workout Mode**: Choose between Intervals or EMOM
+2. **Configure Settings**: Tap the settings icon to adjust timer parameters
+3. **Start Workout**: Use the timer controls to begin your session
+4. **Navigate**: Swipe right to return to mode selection
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Development
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+### Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+
+### Code Style
+
+This project uses:
+- ESLint for code linting
+- Prettier for code formatting
+- TypeScript for type safety
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.
+
+## Support
+
+For issues and feature requests, please open an issue on GitHub.

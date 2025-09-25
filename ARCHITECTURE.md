@@ -1,4 +1,4 @@
-# Tabata Zen App - Architecture Documentation
+# khrono timer - Architecture Documentation
 
 > **Last Updated:** December 2024  
 > **Font:** Noto Sans Japanese (changed from Noto Serif JP)  
@@ -7,7 +7,7 @@
 ## 📁 Project Structure
 
 ```
-tabata-zen-app/
+khrono-timer/
 ├── 📄 Configuration Files
 ├── 📁 src/                    # Source code directory
 ├── 📁 public/                 # Static assets
