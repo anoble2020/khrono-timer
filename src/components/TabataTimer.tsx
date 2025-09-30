@@ -4,7 +4,7 @@ import { TimerControls } from './TimerControls';
 import { TimerDisplay } from './TimerDisplay';
 import { ProgressIndicator } from './ProgressIndicator';
 import { TimerConfig, TimerMode } from '@/pages/Index';
-import { NativeAudio } from '@capacitor-community/native-audio';
+// import { NativeAudio } from '@capacitor-community/native-audio';
 
 export type TimerState = 'idle' | 'work' | 'rest' | 'setRest' | 'complete';
 

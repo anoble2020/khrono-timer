@@ -1,3 +1,5 @@
+require_relative '../../node_modules/@capacitor/ios/scripts/pods_helpers'
+
 platform :ios, '14.0'
 use_frameworks!
 
@@ -6,15 +8,10 @@ use_frameworks!
 # Requires CocoaPods 1.6 or newer
 install! 'cocoapods', :disable_input_output_paths => true
 
-# Xcode Cloud compatibility
-install! 'cocoapods', :integrate_targets => false
-
 def capacitor_pods
-  # Use published versions instead of local paths for Xcode Cloud compatibility
-  pod 'Capacitor', '~> 7.4'
-  pod 'CapacitorCordova', '~> 7.4'
-  # Temporarily remove native audio pod to test build
-  # pod 'CapacitorCommunityNativeAudio', '7.0.1'
+  pod 'Capacitor', :path => '../../node_modules/@capacitor/ios'
+  pod 'CapacitorCordova', :path => '../../node_modules/@capacitor/ios'
+  pod 'CapacitorSplashScreen', :path => '../../node_modules/@capacitor/splash-screen'
 end
 
 target 'App' do
@@ -23,9 +20,5 @@ target 'App' do
 end
 
 post_install do |installer|
-  installer.pods_project.targets.each do |target|
-    target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0'
-    end
-  end
+  assertDeploymentTarget(installer)
 end
