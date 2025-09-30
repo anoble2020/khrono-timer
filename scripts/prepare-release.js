@@ -72,10 +72,19 @@ function processRelease(version) {
     process.exit(1);
   }
   
-  // Create release commit
+  // Create release commit only if there are changes
   const commitMessage = `chore: prepare release v${version}`;
   execSync(`git add package.json`, { stdio: 'inherit' });
-  execSync(`git commit -m "${commitMessage}"`, { stdio: 'inherit' });
+  
+  // Check if there are changes to commit
+  try {
+    execSync(`git diff --cached --quiet`, { stdio: 'pipe' });
+    console.log('ℹ️  No changes to commit (version unchanged)');
+  } catch (error) {
+    // There are changes, commit them
+    execSync(`git commit -m "${commitMessage}"`, { stdio: 'inherit' });
+    console.log('✅ Release commit created');
+  }
   
   console.log('\n✅ Release preparation complete!');
   console.log('');
