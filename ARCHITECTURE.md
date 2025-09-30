@@ -339,4 +339,6 @@ khrono-timer/
 
 ---
 
+test
+
 *This documentation should be updated whenever significant changes are made to the codebase structure or functionality.*

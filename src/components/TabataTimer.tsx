@@ -98,7 +98,7 @@ export const TabataTimer: React.FC<TabataTimerProps> = ({ config, mode, onWorkou
   const createBeep = useCallback((frequency: number, duration: number) => {
     try {
       if (!audioContextRef.current) {
-        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+        audioContextRef.current = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
       }
       
       const ctx = audioContextRef.current;

@@ -1,12 +1,11 @@
-name: Dev Deploy
+name: Dev Check
 
 on:
   push:
     branches: [ dev ]
-  workflow_dispatch:  # Allow manual triggering
 
 jobs:
-  dev-deploy:
+  dev-check:
     runs-on: ubuntu-latest
     
     steps:
@@ -27,16 +26,16 @@ jobs:
     - name: Install dependencies
       run: npm ci --legacy-peer-deps
       
+    - name: Run linter
+      run: npm run lint
+      
     - name: Build project
       run: npm run build
       
-    - name: Deploy to dev environment
+    - name: Check for build artifacts
       run: |
-        echo "🚀 Dev build completed successfully"
-        echo "📦 Version: $(node -p "require('./package.json').version")"
-        echo "🌿 Branch: dev"
-        echo ""
-        echo "💡 This is a development build. Full CI runs only on main branch."
-        echo "📋 To release: Create a PR from dev to main"
-        # Add your dev deployment logic here
-        # For example: deploy to a staging server, update dev app, etc.
+        if [ ! -d "dist" ]; then
+          echo "Build failed - dist directory not found"
+          exit 1
+        fi
+        echo "✅ Dev build successful"

@@ -19,8 +19,13 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '20'
         cache: 'npm'
+        
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libpcap-dev build-essential python3-dev
         
     - name: Install dependencies
       run: npm ci --legacy-peer-deps
@@ -68,8 +73,12 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '20'
         cache: 'npm'
+        
+    - name: Install system dependencies (macOS)
+      run: |
+        brew install libpcap
         
     - name: Install dependencies
       run: npm ci --legacy-peer-deps
