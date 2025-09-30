@@ -72,7 +72,11 @@ jobs:
         cd ios/App
         pod install --repo-update
         
+    - name: List available simulators
+      run: |
+        xcrun simctl list devices available
+          
     - name: Build iOS project (test only)
       run: |
         cd ios/App
-        xcodebuild -workspace App.xcworkspace -scheme App -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 15' build
+        xcodebuild -workspace App.xcworkspace -scheme App -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 14' build

@@ -51,15 +51,13 @@ jobs:
         echo "version=$VERSION" >> $GITHUB_OUTPUT
         
     - name: Create Release
-      uses: actions/create-release@v1
+      run: |
+        gh release create "v${{ steps.changelog.outputs.version }}" \
+          --title "Release v${{ steps.changelog.outputs.version }}" \
+          --notes-file CHANGELOG.md \
+          --latest
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: v${{ steps.changelog.outputs.version }}
-        release_name: Release v${{ steps.changelog.outputs.version }}
-        body_path: CHANGELOG.md
-        draft: false
-        prerelease: false
 
   ios-release:
     runs-on: macos-latest
