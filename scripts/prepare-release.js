@@ -3,9 +3,10 @@
 // Script to prepare a release from dev to main
 // This script helps ensure a clean release process with automatic version bumping
 
-const fs = require('fs');
-const path = require('path');
-const { execSync } = require('child_process');
+import fs from 'fs';
+import path from 'path';
+import { execSync } from 'child_process';
+import readline from 'readline';
 
 console.log('🚀 Preparing release from dev to main...');
 
@@ -127,7 +128,6 @@ function main() {
   }
 
   // Interactive mode
-  const readline = require('readline');
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
