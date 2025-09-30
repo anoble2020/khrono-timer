@@ -52,90 +52,7 @@ function incrementVersion(type) {
   }
 }
 
-// Check for command line arguments
-const args = process.argv.slice(2);
-let versionType = null;
-
-if (args.includes('--major')) {
-  versionType = 'major';
-} else if (args.includes('--minor')) {
-  versionType = 'minor';
-} else if (args.includes('--patch')) {
-  versionType = 'patch';
-} else if (args.includes('--custom')) {
-  const customIndex = args.indexOf('--custom');
-  if (customIndex + 1 < args.length) {
-    versionType = 'custom';
-    const customVersion = args[customIndex + 1];
-    processRelease(customVersion);
-    return;
-  } else {
-    console.error('❌ --custom requires a version number');
-    process.exit(1);
-  }
-}
-
-// If version type is specified via CLI, use it directly
-if (versionType && versionType !== 'custom') {
-  const newVersion = incrementVersion(versionType);
-  console.log(`✅ ${versionType} version bump: ${currentVersion} → ${newVersion}`);
-  processRelease(newVersion);
-  return;
-}
-
-// Interactive mode
-const readline = require('readline');
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-
-console.log('\n📈 Version bump options:');
-console.log('1. major - Breaking changes (1.0.0 → 2.0.0)');
-console.log('2. minor - New features, backward compatible (1.0.0 → 1.1.0)');
-console.log('3. patch - Bug fixes, backward compatible (1.0.0 → 1.0.1)');
-console.log('4. custom - Enter custom version');
-console.log('5. skip - Keep current version');
-
-rl.question('\nSelect version bump type (1-5): ', (choice) => {
-  let newVersion = currentVersion;
-  
-  switch (choice) {
-    case '1':
-      newVersion = incrementVersion('major');
-      console.log(`✅ Major version bump: ${currentVersion} → ${newVersion}`);
-      break;
-    case '2':
-      newVersion = incrementVersion('minor');
-      console.log(`✅ Minor version bump: ${currentVersion} → ${newVersion}`);
-      break;
-    case '3':
-      newVersion = incrementVersion('patch');
-      console.log(`✅ Patch version bump: ${currentVersion} → ${newVersion}`);
-      break;
-    case '4':
-      rl.question('Enter custom version: ', (customVersion) => {
-        if (customVersion && customVersion !== currentVersion) {
-          newVersion = customVersion;
-          console.log(`✅ Custom version: ${currentVersion} → ${newVersion}`);
-        }
-        processRelease(newVersion);
-      });
-      return;
-    case '5':
-      console.log('⏭️  Keeping current version:', currentVersion);
-      break;
-    default:
-      console.log('❌ Invalid choice, keeping current version');
-      break;
-  }
-  
-  processRelease(newVersion);
-});
-
 function processRelease(version) {
-  rl.close();
-  
   if (version !== currentVersion) {
     // Update version in package.json
     packageJson.version = version;
@@ -175,3 +92,90 @@ function processRelease(version) {
   console.log('   git push origin dev');
   console.log('   # Then create PR on GitHub');
 }
+
+// Main function to handle the release process
+function main() {
+  // Check for command line arguments
+  const args = process.argv.slice(2);
+  let versionType = null;
+
+  if (args.includes('--major')) {
+    versionType = 'major';
+  } else if (args.includes('--minor')) {
+    versionType = 'minor';
+  } else if (args.includes('--patch')) {
+    versionType = 'patch';
+  } else if (args.includes('--custom')) {
+    const customIndex = args.indexOf('--custom');
+    if (customIndex + 1 < args.length) {
+      versionType = 'custom';
+      const customVersion = args[customIndex + 1];
+      processRelease(customVersion);
+      return;
+    } else {
+      console.error('❌ --custom requires a version number');
+      process.exit(1);
+    }
+  }
+
+  // If version type is specified via CLI, use it directly
+  if (versionType && versionType !== 'custom') {
+    const newVersion = incrementVersion(versionType);
+    console.log(`✅ ${versionType} version bump: ${currentVersion} → ${newVersion}`);
+    processRelease(newVersion);
+    return;
+  }
+
+  // Interactive mode
+  const readline = require('readline');
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
+  console.log('\n📈 Version bump options:');
+  console.log('1. major - Breaking changes (1.0.0 → 2.0.0)');
+  console.log('2. minor - New features, backward compatible (1.0.0 → 1.1.0)');
+  console.log('3. patch - Bug fixes, backward compatible (1.0.0 → 1.0.1)');
+  console.log('4. custom - Enter custom version');
+  console.log('5. skip - Keep current version');
+
+  rl.question('\nSelect version bump type (1-5): ', (choice) => {
+    let newVersion = currentVersion;
+    
+    switch (choice) {
+      case '1':
+        newVersion = incrementVersion('major');
+        console.log(`✅ Major version bump: ${currentVersion} → ${newVersion}`);
+        break;
+      case '2':
+        newVersion = incrementVersion('minor');
+        console.log(`✅ Minor version bump: ${currentVersion} → ${newVersion}`);
+        break;
+      case '3':
+        newVersion = incrementVersion('patch');
+        console.log(`✅ Patch version bump: ${currentVersion} → ${newVersion}`);
+        break;
+      case '4':
+        rl.question('Enter custom version: ', (customVersion) => {
+          if (customVersion && customVersion !== currentVersion) {
+            newVersion = customVersion;
+            console.log(`✅ Custom version: ${currentVersion} → ${newVersion}`);
+          }
+          processRelease(newVersion);
+        });
+        return;
+      case '5':
+        console.log('⏭️  Keeping current version:', currentVersion);
+        break;
+      default:
+        console.log('❌ Invalid choice, keeping current version');
+        break;
+    }
+    
+    processRelease(newVersion);
+  });
+}
+
+// Run the main function
+main();
