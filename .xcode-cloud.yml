@@ -1,0 +1,27 @@
+# Xcode Cloud Configuration
+# This file configures the build process for Xcode Cloud
+
+# Build configuration
+build:
+  # Use the workspace file for Capacitor projects
+  scheme: App
+  workspace: ios/App/App.xcworkspace
+  
+  # Environment variables
+  environment:
+    # Ensure CocoaPods is available
+    COCOAPODS_DISABLE_STATS: "true"
+    
+# Pre-build actions
+pre_build:
+  - name: "Install CocoaPods"
+    script: |
+      gem install cocoapods
+      cd ios/App
+      pod install --repo-update
+
+# Post-build actions (optional)
+post_build:
+  - name: "Build completed"
+    script: |
+      echo "Build completed successfully!"
