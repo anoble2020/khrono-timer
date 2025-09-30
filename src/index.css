@@ -71,16 +71,39 @@
     line-height: 1.6;
   }
 
-  /* Dynamic glassmorphism background */
+  /* Shader gradient background */
   .gradient-background {
-    background: #141414;
-    background: 
-      radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.2) 0%, transparent 50%),
-      radial-gradient(circle at 40% 40%, rgba(120, 255, 214, 0.15) 0%, transparent 50%),
-      linear-gradient(135deg, #141414 0%, #1c1c1c 25%, #282828 50%, #2a2a2a 75%, #1a1a1a 100%);
+    background: #1a1a1a;
     position: relative;
+    overflow: hidden;
   }
+
+  /* Ensure the gradient container is visible */
+  .gradient-background .gradient-container {
+    z-index: -1;
+  }
+
+  .shader-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+  }
+
+  .grain-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('/src/assets/bg_grain.svg') center/cover no-repeat;
+    opacity: 0.1;
+    z-index: -1;
+    pointer-events: none;
+  }
+
 
   /* Safe area handling for iPhone notch */
   .pt-safe-top {
@@ -95,20 +118,6 @@
     margin-bottom: max(env(safe-area-inset-bottom), 20px);
   }
   
-  .gradient-background::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-      linear-gradient(45deg, transparent 49%, rgba(255, 255, 255, 0.03) 50%, transparent 51%),
-      linear-gradient(-45deg, transparent 49%, rgba(255, 255, 255, 0.03) 50%, transparent 51%);
-    background-size: 30px 30px;
-    pointer-events: none;
-    opacity: 0.5;
-  }
 
   /* Glassmorphism base styles */
   .glass {
@@ -258,7 +267,7 @@
   }
 
   .mode-card.emom {
-    background: linear-gradient(135deg, rgba(60, 60, 40, 0.3), rgba(40, 40, 20, 0.2));
+    background: linear-gradient(135deg, rgba(60, 60, 80, 0.3), rgba(40, 40, 60, 0.2));
     border: 1px solid rgba(255, 255, 255, 0.2);
   }
 

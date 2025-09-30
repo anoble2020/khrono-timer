@@ -6,6 +6,7 @@ import { TabataTimer } from '@/components/TabataTimer';
 import HealthKitSetup from '@/components/HealthKitSetup';
 import HealthMetricsComponent from '@/components/HealthMetrics';
 import { healthKitService, HealthMetrics } from '@/services/HealthKitService';
+import CSSGradientBackground from '@/components/CSSGradientBackground';
 
 export type TimerMode = 'intervals' | 'emom';
 
@@ -195,9 +196,12 @@ const Index = () => {
 
   return (
     <div
-      className="min-h-screen h-screen overflow-hidden gradient-background transition-colors duration-300"
+      className="min-h-screen h-screen overflow-hidden transition-colors duration-300"
       style={{ overscrollBehavior: 'none' }}
     >
+      {/* CSS Gradient Background */}
+      <CSSGradientBackground />
+      
       {/* Safe area padding for iPhone notch */}
       <div className="pt-safe-top">
 

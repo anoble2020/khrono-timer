@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Timer, Zap } from 'lucide-react';
 import HealthKitSetup from '@/components/HealthKitSetup';
+import CSSGradientBackground from '@/components/CSSGradientBackground';
 
 export type TimerMode = 'intervals' | 'emom';
 
@@ -42,6 +43,9 @@ const ModeSelection = () => {
       className="min-h-screen h-screen overflow-hidden gradient-background transition-colors duration-300"
       style={{ overscrollBehavior: 'none' }}
     >
+      {/* CSS Gradient Background */}
+      <CSSGradientBackground />
+      
       {/* Safe area padding for iPhone notch */}
       <div className="pt-safe-top">
 
