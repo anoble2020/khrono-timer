@@ -44,13 +44,63 @@ fi
 echo "📦 Node.js version: $(node --version)"
 echo "📦 npm version: $(npm --version)"
 
-# Install dependencies
+# Configure npm for Xcode Cloud environment
+echo "🔧 Configuring npm for Xcode Cloud..."
+npm config set maxsockets 3
+npm config set fetch-retry-mintimeout 20000
+npm config set fetch-retry-maxtimeout 120000
+
+# Create .npmrc to handle peer dependency conflicts
+echo "🔧 Creating .npmrc for dependency resolution..."
+cat > .npmrc << EOF
+legacy-peer-deps=true
+fund=false
+audit=false
+EOF
+
+# Add package.json overrides to resolve HealthKit peer dependency conflict
+echo "🔧 Adding package.json overrides for dependency resolution..."
+if [ -f "package.json" ]; then
+    # Create a backup
+    cp package.json package.json.backup
+    
+    # Add overrides to force correct Capacitor version
+    node -e "
+    const fs = require('fs');
+    const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+    pkg.overrides = {
+      '@perfood/capacitor-healthkit': {
+        '@capacitor/core': '^7.4.3'
+      }
+    };
+    fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
+    console.log('✅ Added package.json overrides');
+    "
+else
+    echo "❌ package.json not found, cannot add overrides"
+    exit 1
+fi
+
+# Install dependencies with multiple fallback strategies
 echo "📦 Installing npm dependencies..."
-npm install
+if ! npm install --legacy-peer-deps; then
+    echo "❌ First attempt failed, trying with force flag..."
+    if ! npm install --force --legacy-peer-deps; then
+        echo "❌ Second attempt failed, trying with --no-optional..."
+        npm install --legacy-peer-deps --no-optional --force
+    fi
+fi
 
 # Build the web app
 echo "🏗️ Building web app..."
 npm run build
+
+# Cleanup: Restore original package.json
+echo "🧹 Cleaning up temporary files..."
+if [ -f "package.json.backup" ]; then
+    mv package.json.backup package.json
+    echo "✅ Restored original package.json"
+fi
 
 # Copy web assets to iOS
 echo "📱 Copying web assets to iOS..."

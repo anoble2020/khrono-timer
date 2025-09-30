@@ -5,13 +5,14 @@ This document explains the Xcode Cloud configuration for the Tabata Zen app.
 ## Files Added
 
 ### 1. `ci_scripts/ci_pre_xcodebuild.sh`
-- **Purpose**: Installs CocoaPods dependencies before the build
+- **Purpose**: Full Capacitor build process for Xcode Cloud
 - **What it does**:
-  - Sets UTF-8 encoding to avoid Unicode issues
-  - Installs CocoaPods if not available
-  - Cleans existing Pods directory
-  - Runs `pod install --repo-update --verbose`
-  - Verifies that configuration files are generated
+  - Installs Node.js and npm dependencies
+  - Handles peer dependency conflicts with HealthKit plugin
+  - Builds the web app with `npm run build`
+  - Copies web assets to iOS with `npx cap copy ios`
+  - Installs CocoaPods dependencies
+  - Cleans up temporary files
 
 ### 2. `ci_scripts/ci_post_xcodebuild.sh`
 - **Purpose**: Post-build tasks (currently just logging)
@@ -30,16 +31,23 @@ This document explains the Xcode Cloud configuration for the Tabata Zen app.
 
 ## Troubleshooting
 
-If you see the error:
-```
-Unable to open base configuration reference file '/Volumes/workspace/repository/ios/App/Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig'
-```
+### Common Issues:
 
-This means the pre-build script didn't run properly or CocoaPods installation failed. Check:
+1. **CocoaPods Configuration Error:**
+   ```
+   Unable to open base configuration reference file '/Volumes/workspace/repository/ios/App/Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig'
+   ```
+   - **Solution**: The pre-build script didn't run properly. Check that `ci_scripts/ci_pre_xcodebuild.sh` is committed and has execute permissions.
 
-1. The `ci_scripts/ci_pre_xcodebuild.sh` file is committed to the repository
-2. The script has execute permissions (`chmod +x`)
-3. The script runs successfully in the Xcode Cloud logs
+2. **npm ERESOLVE Dependency Conflict:**
+   ```
+   npm error ERESOLVE could not resolve
+   ```
+   - **Solution**: The script now handles this automatically with `--legacy-peer-deps` and package.json overrides.
+
+3. **HealthKit Plugin Compatibility:**
+   - The script uses package.json overrides to force the correct Capacitor version for the HealthKit plugin
+   - This resolves the peer dependency conflict without changing your actual dependencies
 
 ## Manual Testing
 
