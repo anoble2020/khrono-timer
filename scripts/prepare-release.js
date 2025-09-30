@@ -59,6 +59,16 @@ function processRelease(version) {
     packageJson.version = version;
     fs.writeFileSync('package.json', JSON.stringify(packageJson, null, 2));
     console.log('✅ Updated package.json version to:', version);
+    
+    // Update iOS version to match
+    console.log('📱 Syncing iOS version...');
+    try {
+      execSync('node scripts/update-ios-version.js', { stdio: 'inherit' });
+      console.log('✅ iOS version synced');
+    } catch (error) {
+      console.warn('⚠️  iOS version sync failed:', error.message);
+      console.log('   You may need to update iOS version manually');
+    }
   }
   
   // Run tests
@@ -74,7 +84,7 @@ function processRelease(version) {
   
   // Create release commit only if there are changes
   const commitMessage = `chore: prepare release v${version}`;
-  execSync(`git add package.json`, { stdio: 'inherit' });
+  execSync(`git add package.json ios/App/App.xcodeproj/project.pbxproj`, { stdio: 'inherit' });
   
   // Check if there are changes to commit
   try {

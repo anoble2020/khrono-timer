@@ -81,6 +81,20 @@ node scripts/prepare-release.js --custom 1.2.3
 ./scripts/sync-branches.sh full-sync
 ```
 
+### Version Examples
+```
+Current: 1.0.0
+Major:   2.0.0  (breaking changes)
+Minor:   1.1.0  (new features)
+Patch:   1.0.1  (bug fixes)
+```
+
+### App Store Connect Alignment
+- **Current version**: 1.0.0 (matches App Store Connect)
+- **Next patch**: 1.0.1 (bug fixes)
+- **Next minor**: 1.1.0 (new features)
+- **Next major**: 2.0.0 (breaking changes)
+
 ## Troubleshooting
 
 ### Release Script Fails
