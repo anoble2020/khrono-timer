@@ -4,11 +4,14 @@ PODS:
   - CapacitorCordova (7.4.3)
   - CapacitorSplashScreen (7.0.3):
     - Capacitor
+  - PerfoodCapacitorHealthkit (1.3.2):
+    - Capacitor
 
 DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
+  - "PerfoodCapacitorHealthkit (from `../../node_modules/@perfood/capacitor-healthkit`)"
 
 EXTERNAL SOURCES:
   Capacitor:
@@ -17,12 +20,15 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/ios"
   CapacitorSplashScreen:
     :path: "../../node_modules/@capacitor/splash-screen"
+  PerfoodCapacitorHealthkit:
+    :path: "../../node_modules/@perfood/capacitor-healthkit"
 
 SPEC CHECKSUMS:
   Capacitor: 28d6c01026a9a3f7156529498ec1f389a2a28dbc
   CapacitorCordova: 435121e81a2df4d0034f0fb11fcefab5104cfdb5
   CapacitorSplashScreen: e388b8e0ed0e982a9d3a40417f478e7a018a8763
+  PerfoodCapacitorHealthkit: 0708728954308c0217daa6912deeb73df7cba050
 
-PODFILE CHECKSUM: defae69d045aabbbb2d1c81b9ed5ce5a3409e308
+PODFILE CHECKSUM: 513c7284f753ba890f7c2a7c58dc6d246e169dc7
 
 COCOAPODS: 1.16.2

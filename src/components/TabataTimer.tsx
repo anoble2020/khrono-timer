@@ -11,9 +11,11 @@ export type TimerState = 'idle' | 'work' | 'rest' | 'setRest' | 'complete';
 interface TabataTimerProps {
   config: TimerConfig;
   mode: TimerMode;
+  onWorkoutStart?: () => void;
+  onWorkoutStop?: () => void;
 }
 
-export const TabataTimer: React.FC<TabataTimerProps> = ({ config, mode }) => {
+export const TabataTimer: React.FC<TabataTimerProps> = ({ config, mode, onWorkoutStart, onWorkoutStop }) => {
   const [isRunning, setIsRunning] = useState(false);
   const [timeLeft, setTimeLeft] = useState(config.workTime);
   const [currentRound, setCurrentRound] = useState(1);
@@ -242,6 +244,7 @@ export const TabataTimer: React.FC<TabataTimerProps> = ({ config, mode }) => {
     if (!isRunning) return;
 
     intervalRef.current = setInterval(() => {
+      console.debug('[Timer] interval tick');
       setTimeLeft(prev => {
         if (prev > 1) {
           // Countdown beeps for last 3 seconds
@@ -262,6 +265,7 @@ export const TabataTimer: React.FC<TabataTimerProps> = ({ config, mode }) => {
             } else {
               setTimerState('complete');
               setIsRunning(false);
+              onWorkoutStop?.();
               return 0;
             }
           } else {
@@ -277,6 +281,7 @@ export const TabataTimer: React.FC<TabataTimerProps> = ({ config, mode }) => {
             } else {
               setTimerState('complete');
               setIsRunning(false);
+              onWorkoutStop?.();
               return 0;
             }
           }
@@ -300,25 +305,32 @@ export const TabataTimer: React.FC<TabataTimerProps> = ({ config, mode }) => {
         clearInterval(intervalRef.current);
       }
     };
-  }, [isRunning, timerState, currentRound, currentSet, config, mode, playStartBeep, playEndBeep, playCountdownBeep]);
+  }, [isRunning, timerState, currentRound, currentSet, config, mode]);
 
   const start = async () => {
     // Initialize audio on first user interaction (required for mobile)
     await initializeAudio();
     
     if (timerState === 'idle') {
+      console.debug('[Timer] starting from idle -> work');
       setTimerState('work');
       setTimeLeft(mode === 'emom' ? 60 : config.workTime);
       await playStartBeep();
+      // Notify parent component that workout has started
+      onWorkoutStart?.();
     }
+    console.debug('[Timer] set running true');
     setIsRunning(true);
   };
 
   const pause = () => {
+    console.debug('[Timer] pause pressed');
     setIsRunning(false);
   };
 
   const reset = () => {
+    console.debug('[Timer] reset pressed');
+    const wasRunning = isRunning;
     setIsRunning(false);
     setTimeLeft(mode === 'emom' ? 60 : config.workTime);
     setCurrentRound(1);
@@ -326,6 +338,10 @@ export const TabataTimer: React.FC<TabataTimerProps> = ({ config, mode }) => {
     setTimerState('idle');
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
+    }
+    // Notify parent component that workout has stopped if it was running
+    if (wasRunning) {
+      onWorkoutStop?.();
     }
   };
 
@@ -340,7 +356,6 @@ export const TabataTimer: React.FC<TabataTimerProps> = ({ config, mode }) => {
     } else {
       // Intervals: use the existing totalTime calculation
       if (!totalTime || totalTime <= 0) {
-        console.log('Progress debug - totalTime:', totalTime);
         return 0;
       }
       
@@ -350,7 +365,7 @@ export const TabataTimer: React.FC<TabataTimerProps> = ({ config, mode }) => {
       // Add completed sets (only if currentSet > 1)
       if (currentSet > 1) {
         elapsedTime += (currentSet - 1) * config.rounds * (config.workTime + config.restTime);
-        elapsedTime += (currentSet - 1) * config.setRestTime;
+        elapsedTime += (currentSet - 1) * config.setRest;
       }
       
       // Add completed rounds in current set (only if currentRound > 1)
@@ -364,19 +379,10 @@ export const TabataTimer: React.FC<TabataTimerProps> = ({ config, mode }) => {
       } else if (timerState === 'rest') {
         elapsedTime += config.workTime + (config.restTime - timeLeft);
       } else if (timerState === 'setRest') {
-        elapsedTime += config.workTime + config.restTime + (config.setRestTime - timeLeft);
+        elapsedTime += config.workTime + config.restTime + (config.setRest - timeLeft);
       }
       
       const progress = elapsedTime / totalTime;
-      console.log('Progress debug:', { 
-        elapsedTime, 
-        totalTime, 
-        progress, 
-        timerState, 
-        currentRound, 
-        currentSet,
-        config: { workTime: config.workTime, restTime: config.restTime, setRestTime: config.setRestTime }
-      });
       return Math.max(0, Math.min(progress, 1));
     }
   };

@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Settings, Timer, Zap, Play, Pause, RotateCcw, Clock, Layers } from 'lucide-react';
 import { TabataTimer } from '@/components/TabataTimer';
+import HealthKitSetup from '@/components/HealthKitSetup';
+import HealthMetricsComponent from '@/components/HealthMetrics';
+import { healthKitService, HealthMetrics } from '@/services/HealthKitService';
 
 export type TimerMode = 'intervals' | 'emom';
 
@@ -18,9 +21,18 @@ const Index = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [settingsClosing, setSettingsClosing] = useState(false);
   const [currentMode, setCurrentMode] = useState<TimerMode | null>(null);
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [touchStartY, setTouchStartY] = useState<number | null>(null);
+  const [touchEndX, setTouchEndX] = useState<number | null>(null);
+  const [touchEndY, setTouchEndY] = useState<number | null>(null);
   const [wakeLock, setWakeLock] = useState<WakeLockSentinel | null>(null);
+  const [isHealthKitConnected, setIsHealthKitConnected] = useState(false);
+  const [isWorkoutActive, setIsWorkoutActive] = useState(false);
+  const [healthMetrics, setHealthMetrics] = useState<HealthMetrics>({
+    heartRate: null,
+    caloriesBurned: 0,
+    isConnected: false,
+  });
   
   const defaultConfigs: Record<TimerMode, TimerConfig> = {
     intervals: { workTime: 20, restTime: 10, rounds: 8, sets: 1, setRest: 60 },
@@ -62,6 +74,32 @@ const Index = () => {
     setTimerConfig(defaultConfigs[mode]);
   };
 
+  // HealthKit handlers
+  const handleHealthKitSetup = (isConnected: boolean) => {
+    setIsHealthKitConnected(isConnected);
+  };
+
+  const handleWorkoutStart = () => {
+    setIsWorkoutActive(true);
+    if (healthKitService.isAuthorizedForHealthKit()) {
+      healthKitService.startWorkoutSession();
+    }
+  };
+
+  const handleWorkoutStop = () => {
+    setIsWorkoutActive(false);
+    if (healthKitService.isAuthorizedForHealthKit()) {
+      const session = healthKitService.endWorkoutSession();
+      if (session) {
+        console.log('Workout session ended:', session);
+      }
+    }
+  };
+
+  const handleMetricsUpdate = useCallback((metrics: HealthMetrics) => {
+    setHealthMetrics(metrics);
+  }, []);
+
   const handleBackToModeSelection = () => {
     setCurrentMode(null);
     setShowSettings(false);
@@ -69,33 +107,68 @@ const Index = () => {
   };
 
   const handleCloseSettings = () => {
-    setSettingsClosing(true);
-    setTimeout(() => {
-      setShowSettings(false);
+    if (showSettings) {
+      setSettingsClosing(true);
+      setTimeout(() => {
+        setShowSettings(false);
+        setSettingsClosing(false);
+      }, 300); // Match fade-out animation duration
+    }
+  };
+
+  const handleToggleSettings = () => {
+    console.debug('[Settings] toggle clicked, current state:', showSettings);
+    if (showSettings) {
+      console.debug('[Settings] closing settings');
+      handleCloseSettings();
+    } else {
+      console.debug('[Settings] opening settings');
+      setShowSettings(true);
       setSettingsClosing(false);
-    }, 300); // Match fade-out animation duration
+    }
   };
 
   // Swipe navigation handlers
   const minSwipeDistance = 50;
 
   const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
+    if (!currentMode || showSettings) return; // only enable swipe-back in workout screen and not over settings
+    setTouchEndX(null);
+    setTouchEndY(null);
+    setTouchStartX(e.targetTouches[0].clientX);
+    setTouchStartY(e.targetTouches[0].clientY);
+    console.debug('[Gesture] touchstart', {
+      x: e.targetTouches[0].clientX,
+      y: e.targetTouches[0].clientY,
+      mode: currentMode,
+    });
   };
 
   const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
+    if (!currentMode || showSettings) return;
+    setTouchEndX(e.targetTouches[0].clientX);
+    setTouchEndY(e.targetTouches[0].clientY);
+    if (touchStartX !== null && touchStartY !== null) {
+      const dx = e.targetTouches[0].clientX - touchStartX;
+      const dy = e.targetTouches[0].clientY - touchStartY;
+      // Do not prevent default to avoid interfering with taps/buttons
+      // Log small moves rarely to avoid spam
+      if (Math.abs(dx) > 10 || Math.abs(dy) > 10) {
+        console.debug('[Gesture] touchmove', { dx, dy });
+      }
+    }
   };
 
-  const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    
-    const distance = touchEnd - touchStart;
-    const isRightSwipe = distance > minSwipeDistance;
-    
-    // If swiping right (left to right) and we're in workout mode, go back to mode selection
-    if (isRightSwipe && currentMode) {
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (!currentMode || showSettings) return;
+    if (touchStartX === null || touchEndX === null || touchStartY === null || touchEndY === null) return;
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = Math.abs(touchEndY - touchStartY);
+    const isRightSwipe = deltaX > minSwipeDistance && deltaY < 40; // ignore mostly vertical gestures/taps
+    console.debug('[Gesture] touchend', { deltaX, deltaY, isRightSwipe });
+    if (isRightSwipe) {
+      console.debug('[Gesture] triggering back to mode selection');
+      // Avoid stopping propagation for normal taps
       handleBackToModeSelection();
     }
   };
@@ -117,18 +190,23 @@ const Index = () => {
     }
   ];
 
+  // Feature flag to quickly disable metrics for debugging freezes
+  const DISABLE_HEALTH_METRICS = false;
+
   return (
-    <div 
+    <div
       className="min-h-screen h-screen overflow-hidden gradient-background transition-colors duration-300"
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
-      onTouchEnd={onTouchEnd}
       style={{ overscrollBehavior: 'none' }}
     >
       {/* Safe area padding for iPhone notch */}
       <div className="pt-safe-top">
 
-      <main className="container mx-auto px-4 py-6 space-y-6 h-full overflow-hidden">
+      <main 
+        className="container mx-auto px-4 py-6 space-y-6 h-full overflow-hidden"
+        onTouchStart={currentMode && !showSettings ? onTouchStart : undefined}
+        onTouchMove={currentMode && !showSettings ? onTouchMove : undefined}
+        onTouchEnd={currentMode && !showSettings ? onTouchEnd : undefined}
+      >
         {!currentMode ? (
           /* Mode Selection */
           <div className="max-w-2xl mx-auto">
@@ -137,6 +215,9 @@ const Index = () => {
                 Select a workout mode to get started
               </p>
             </div>
+
+            {/* HealthKit Setup */}
+            <HealthKitSetup onSetupComplete={handleHealthKitSetup} />
 
             <div className="animate-fade-in">
               <div className="flex flex-col md:flex-row gap-6 md:gap-8 lg:gap-12 justify-center items-center md:px-6">
@@ -170,12 +251,80 @@ const Index = () => {
         ) : (
           /* Workout Mode */
           <>
+          {/* Swipe navigation temporarily disabled for debugging */}
+
+          {/* Workout Details */}
+            <Card className="card-modern p-6 animate-fade-in">
+              <div className="flex items-center justify-between">
+                <div className="text-center space-y-3 flex-1">
+                  <div className="flex justify-center space-x-8 text-muted-foreground">
+                     {currentMode === 'intervals' && (
+                       <>
+                         <div className="flex flex-col items-center">
+                           <div className="flex items-center space-x-1 mb-1">
+                             <Play className="w-4 h-4" />
+                             <span className="text-sm font-medium">Work</span>
+                           </div>
+                           <span className="text-lg font-bold text-foreground">{timerConfig.workTime}s</span>
+                         </div>
+                         <div className="flex flex-col items-center">
+                           <div className="flex items-center space-x-1 mb-1">
+                             <Pause className="w-4 h-4" />
+                             <span className="text-sm font-medium">Rest</span>
+                           </div>
+                           <span className="text-lg font-bold text-foreground">{timerConfig.restTime}s</span>
+                         </div>
+                       </>
+                     )}
+                     {currentMode === 'emom' && (
+                       <div className="flex flex-col items-center">
+                         <div className="flex items-center space-x-1 mb-1">
+                           <Clock className="w-4 h-4" />
+                           <span className="text-sm font-medium">Duration</span>
+                         </div>
+                         <span className="text-lg font-bold text-foreground">{timerConfig.rounds} min</span>
+                       </div>
+                     )}
+                     <div className="flex flex-col items-center">
+                       <div className="flex items-center space-x-1 mb-1">
+                         <RotateCcw className="w-4 h-4" />
+                         <span className="text-sm font-medium">Rounds</span>
+                       </div>
+                       <span className="text-lg font-bold text-foreground">{timerConfig.rounds}</span>
+                     </div>
+                     {timerConfig.sets > 1 && (
+                       <div className="flex flex-col items-center">
+                         <div className="flex items-center space-x-1 mb-1">
+                           <Layers className="w-4 h-4" />
+                           <span className="text-sm font-medium">Sets</span>
+                         </div>
+                         <span className="text-lg font-bold text-foreground">{timerConfig.sets}</span>
+                       </div>
+                     )}
+            </div>
+                </div>
+                
+                {/* Settings Button */}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={handleToggleSettings}
+                  className="ripple w-10 h-10 rounded-full"
+                  title="Settings"
+                >
+                  <Settings className="w-5 h-5" />
+                </Button>
+          </div>
+        </Card>
+
         {/* Main Timer */}
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="flex-1">
             <TabataTimer 
               config={timerConfig}
               mode={currentMode}
+              onWorkoutStart={handleWorkoutStart}
+              onWorkoutStop={handleWorkoutStop}
             />
           </div>
           
@@ -314,72 +463,13 @@ const Index = () => {
           )}
         </div>
 
-            {/* Workout Details */}
-            <Card className="card-modern p-6 animate-fade-in">
-              <div className="flex items-center justify-between">
-                <div className="text-center space-y-3 flex-1">
-                  <h3 className="text-xl font-bold text-foreground">
-              {currentMode.toUpperCase()} WORKOUT
-            </h3>
-                  <div className="flex justify-center space-x-8 text-muted-foreground">
-                     {currentMode === 'intervals' && (
-                       <>
-                         <div className="flex flex-col items-center">
-                           <div className="flex items-center space-x-1 mb-1">
-                             <Play className="w-4 h-4" />
-                             <span className="text-sm font-medium">Work</span>
-                           </div>
-                           <span className="text-lg font-bold text-foreground">{timerConfig.workTime}s</span>
-                         </div>
-                         <div className="flex flex-col items-center">
-                           <div className="flex items-center space-x-1 mb-1">
-                             <Pause className="w-4 h-4" />
-                             <span className="text-sm font-medium">Rest</span>
-                           </div>
-                           <span className="text-lg font-bold text-foreground">{timerConfig.restTime}s</span>
-                         </div>
-                       </>
-                     )}
-                     {currentMode === 'emom' && (
-                       <div className="flex flex-col items-center">
-                         <div className="flex items-center space-x-1 mb-1">
-                           <Clock className="w-4 h-4" />
-                           <span className="text-sm font-medium">Duration</span>
-                         </div>
-                         <span className="text-lg font-bold text-foreground">{timerConfig.rounds} min</span>
-                       </div>
-                     )}
-                     <div className="flex flex-col items-center">
-                       <div className="flex items-center space-x-1 mb-1">
-                         <RotateCcw className="w-4 h-4" />
-                         <span className="text-sm font-medium">Rounds</span>
-                       </div>
-                       <span className="text-lg font-bold text-foreground">{timerConfig.rounds}</span>
-                     </div>
-                     {timerConfig.sets > 1 && (
-                       <div className="flex flex-col items-center">
-                         <div className="flex items-center space-x-1 mb-1">
-                           <Layers className="w-4 h-4" />
-                           <span className="text-sm font-medium">Sets</span>
-                         </div>
-                         <span className="text-lg font-bold text-foreground">{timerConfig.sets}</span>
-                       </div>
-                     )}
-            </div>
-                </div>
-                
-                {/* Settings Button */}
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setShowSettings(!showSettings)}
-                  className="ripple w-10 h-10 rounded-full"
-                  title="Settings"
-                >
-                  <Settings className="w-5 h-5" />
-                </Button>
-          </div>
-        </Card>
+                {/* Health Metrics */}
+                {!DISABLE_HEALTH_METRICS && (
+                  <HealthMetricsComponent
+                    isWorkoutActive={isWorkoutActive}
+                    onMetricsUpdate={handleMetricsUpdate}
+                  />
+                )}
           </>
         )}
       </main>

@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Timer, Zap } from 'lucide-react';
+import HealthKitSetup from '@/components/HealthKitSetup';
 
 export type TimerMode = 'intervals' | 'emom';
 
@@ -23,11 +25,16 @@ const modes = [
 
 const ModeSelection = () => {
   const navigate = useNavigate();
+  const [isHealthKitConnected, setIsHealthKitConnected] = useState(false);
 
   // Theme toggle removed - defaulting to dark mode
 
   const handleModeSelect = (mode: TimerMode) => {
     navigate(`/workout/${mode}`);
+  };
+
+  const handleHealthKitSetup = (isConnected: boolean) => {
+    setIsHealthKitConnected(isConnected);
   };
 
   return (
@@ -46,6 +53,9 @@ const ModeSelection = () => {
               Select a workout mode to get started
             </p>
           </div>
+
+          {/* HealthKit Setup */}
+          <HealthKitSetup onSetupComplete={handleHealthKitSetup} />
 
           {/* Mode Selection */}
           <div className="flex flex-col md:flex-row gap-6 md:gap-8 lg:gap-12 justify-center items-center animate-fade-in md:px-6">

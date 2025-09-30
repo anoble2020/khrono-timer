@@ -1,15 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { TabataTimer } from '@/components/TabataTimer';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Settings } from 'lucide-react';
 import { TimerMode, TimerConfig } from './Index';
+import HealthMetricsComponent from '@/components/HealthMetrics';
+import { healthKitService, HealthMetrics } from '@/services/HealthKitService';
 
 const Workout = () => {
   const { mode } = useParams<{ mode: TimerMode }>();
   const navigate = useNavigate();
   const [showSettings, setShowSettings] = useState(false);
+  const [isWorkoutActive, setIsWorkoutActive] = useState(false);
+  const [healthMetrics, setHealthMetrics] = useState<HealthMetrics>({
+    heartRate: null,
+    caloriesBurned: 0,
+    isConnected: false,
+  });
   
   const defaultConfigs: Record<TimerMode, TimerConfig> = {
     intervals: { workTime: 20, restTime: 10, rounds: 8, sets: 1, setRest: 60 },
@@ -21,6 +29,28 @@ const Workout = () => {
   );
 
   // Theme toggle removed - defaulting to dark mode
+
+  // Handle workout state changes
+  const handleWorkoutStart = () => {
+    setIsWorkoutActive(true);
+    if (healthKitService.isAuthorizedForHealthKit()) {
+      healthKitService.startWorkoutSession();
+    }
+  };
+
+  const handleWorkoutStop = () => {
+    setIsWorkoutActive(false);
+    if (healthKitService.isAuthorizedForHealthKit()) {
+      const session = healthKitService.endWorkoutSession();
+      if (session) {
+        console.log('Workout session ended:', session);
+      }
+    }
+  };
+
+  const handleMetricsUpdate = (metrics: HealthMetrics) => {
+    setHealthMetrics(metrics);
+  };
 
   const getModeDisplayName = (mode: string) => {
     switch (mode) {
@@ -39,12 +69,46 @@ const Workout = () => {
       <div className="pt-safe-top">
 
       <main className="container mx-auto px-4 py-6 space-y-6 h-full overflow-hidden">
+        {/* Workout Details (moved above timer) */}
+        <Card className="elevation-1 border-0 p-3 animate-fade-in">
+          <div className="flex items-center justify-between">
+            <div className="text-center space-y-2 flex-1">
+              <div className="flex justify-center space-x-6 text-muted-foreground">
+                {mode === 'intervals' && (
+                  <>
+                    <span>Work: {timerConfig.workTime}s</span>
+                    <span>Rest: {timerConfig.restTime}s</span>
+                  </>
+                )}
+                {mode === 'emom' && (
+                  <span>Duration: {timerConfig.rounds} minutes</span>
+                )}
+                <span>Rounds: {timerConfig.rounds}</span>
+                {timerConfig.sets > 1 && <span>Sets: {timerConfig.sets}</span>}
+              </div>
+            </div>
+            
+            {/* Settings Button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setShowSettings(!showSettings)}
+              className="ripple w-10 h-10 rounded-full"
+              title="Settings"
+            >
+              <Settings className="w-5 h-5" />
+            </Button>
+          </div>
+        </Card>
+
         {/* Main Timer */}
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="flex-1">
             <TabataTimer 
               config={timerConfig}
               mode={mode as TimerMode}
+              onWorkoutStart={handleWorkoutStart}
+              onWorkoutStop={handleWorkoutStop}
             />
           </div>
           
@@ -171,40 +235,11 @@ const Workout = () => {
           )}
         </div>
 
-        {/* Workout Details */}
-        <Card className="elevation-1 border-0 p-4 animate-fade-in">
-          <div className="flex items-center justify-between">
-            <div className="text-center space-y-2 flex-1">
-              <h3 className="text-lg font-semibold text-foreground">
-                {getModeDisplayName(mode || '')} Workout
-              </h3>
-              <div className="flex justify-center space-x-6 text-muted-foreground">
-                {mode === 'intervals' && (
-                  <>
-                    <span>Work: {timerConfig.workTime}s</span>
-                    <span>Rest: {timerConfig.restTime}s</span>
-                  </>
-                )}
-                {mode === 'emom' && (
-                  <span>Duration: {timerConfig.rounds} minutes</span>
-                )}
-                <span>Rounds: {timerConfig.rounds}</span>
-                {timerConfig.sets > 1 && <span>Sets: {timerConfig.sets}</span>}
-              </div>
-            </div>
-            
-            {/* Settings Button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setShowSettings(!showSettings)}
-              className="ripple w-10 h-10 rounded-full"
-              title="Settings"
-            >
-              <Settings className="w-5 h-5" />
-            </Button>
-          </div>
-        </Card>
+        {/* Health Metrics */}
+        <HealthMetricsComponent 
+          isWorkoutActive={isWorkoutActive}
+          onMetricsUpdate={handleMetricsUpdate}
+        />
       </main>
 
       </div>

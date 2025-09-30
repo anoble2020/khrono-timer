@@ -45,5 +45,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>NSHealthShareUsageDescription</key>
+	<string>This app needs access to your health data to track heart rate and calories burned during workouts.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>This app needs access to your health data to track heart rate and calories burned during workouts.</string>
 </dict>
 </plist>
