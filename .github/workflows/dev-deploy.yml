@@ -3,6 +3,7 @@ name: Dev Deploy
 on:
   push:
     branches: [ dev ]
+  workflow_dispatch:  # Allow manual triggering
 
 jobs:
   dev-deploy:
@@ -21,15 +22,16 @@ jobs:
     - name: Install dependencies
       run: npm ci --legacy-peer-deps
       
-    - name: Run linter
-      run: npm run lint
-      
     - name: Build project
       run: npm run build
       
     - name: Deploy to dev environment
       run: |
-        echo "🚀 Deploying dev build..."
-        echo "Build completed successfully for dev branch"
+        echo "🚀 Dev build completed successfully"
+        echo "📦 Version: $(node -p "require('./package.json').version")"
+        echo "🌿 Branch: dev"
+        echo ""
+        echo "💡 This is a development build. Full CI runs only on main branch."
+        echo "📋 To release: Create a PR from dev to main"
         # Add your dev deployment logic here
         # For example: deploy to a staging server, update dev app, etc.

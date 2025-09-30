@@ -117,10 +117,16 @@ When the PR is merged to `main`, the following happens automatically:
 ## GitHub Actions Workflows
 
 ### CI Workflow (`.github/workflows/ci.yml`)
-- Runs on every push to `dev` and `main`
-- Runs on every pull request to `main`
+- Runs on every push to `main` and pull requests to `main`
 - Includes linting, testing, and build verification
 - Includes iOS build test for PRs and main branch
+- Uses `--legacy-peer-deps` to handle HealthKit dependency conflicts
+
+### Dev Check Workflow (`.github/workflows/dev-check.yml`)
+- Runs on every push to `dev` branch
+- Lightweight check: linting and build verification only
+- No iOS build test (faster feedback)
+- Uses `--legacy-peer-deps` to handle dependency conflicts
 
 ### Release Workflow (`.github/workflows/release.yml`)
 - Runs when code is pushed to `main`
@@ -129,8 +135,9 @@ When the PR is merged to `main`, the following happens automatically:
 - Builds and uploads iOS artifacts
 
 ### Dev Deploy Workflow (`.github/workflows/dev-deploy.yml`)
-- Runs on every push to `dev`
-- Deploys to development environment
+- Runs on every push to `dev` (can be manually triggered)
+- Lightweight dev environment deployment
+- Provides build status and version info
 - Can be extended for staging deployments
 
 ## Version Management
