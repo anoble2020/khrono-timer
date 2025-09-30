@@ -8,7 +8,12 @@
     "build": "vite build && npx cap copy ios",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare-release": "node scripts/prepare-release.js",
+    "release": "npm run prepare-release && git push origin dev",
+    "release:patch": "node scripts/prepare-release.js --patch && git push origin dev",
+    "release:minor": "node scripts/prepare-release.js --minor && git push origin dev",
+    "release:major": "node scripts/prepare-release.js --major && git push origin dev"
   },
   "dependencies": {
     "@capacitor/cli": "^7.4.3",
